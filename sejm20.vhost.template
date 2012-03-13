@@ -18,8 +18,8 @@
         Allow from all
     </Directory>
         
-    Alias /static %(path)s/releases/current/%(project_name)s/static
-    <Directory %(path)s/releases/current/%(project_name)s/static>
+    Alias /static %(path)s/releases/current/static
+    <Directory %(path)s/releases/current/static>
         Options Indexes
         Order allow,deny
         Allow from all

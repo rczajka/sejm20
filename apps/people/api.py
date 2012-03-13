@@ -87,7 +87,7 @@ def rank(user, posel_ids=None):
     for p in poslowie:
         rating = 0
         for vote_id, total in totals[p.id].items():
-            rating += float(goods[p.id][vote_id]) / total
+            rating += float(goods[p.id].get(vote_id, 0)) / total
         final_rating = rating / len(totals[p.id]) if totals[p.id] else 0
         ratings.append((p, final_rating))
 
