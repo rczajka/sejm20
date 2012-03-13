@@ -106,7 +106,7 @@ class Punkt(ModelFromApi):
     posiedzenie = models.ForeignKey(Posiedzenie)
     nr = models.CharField(max_length=64)
     nr_int = models.IntegerField()
-    tytul = models.CharField(max_length=255)
+    tytul = models.TextField()
 
     class Meta:
         ordering = ['posiedzenie', 'nr']
@@ -141,7 +141,7 @@ class Glosowanie(ModelFromApi):
     posiedzenie = models.ForeignKey(Posiedzenie)
     punkt = models.ForeignKey(Punkt, null=True, blank=True)
     nr = models.IntegerField()
-    tytul = models.CharField(max_length=255)
+    tytul = models.TextField()
     time = models.DateTimeField()
     wyniki = JSONField(default=[])
 
