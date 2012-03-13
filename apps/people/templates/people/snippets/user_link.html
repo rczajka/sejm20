@@ -1,0 +1,6 @@
+{% load url from future %}
+{% load avatar_tags %}
+
+<a href="{% url "people_user" user.username %}">
+    {% avatar user 32 %} <span>{{ user.username }}</span>
+    ({{ count }})</a>

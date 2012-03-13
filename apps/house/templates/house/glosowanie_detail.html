@@ -1,0 +1,48 @@
+{% extends "site_base.html" %}
+
+
+{% block head_title %}{{ glosowanie.tytul }}{% endblock %}
+
+
+
+{% block body %}
+    <h1>{{ glosowanie.tytul }}</h1>
+
+<p>{{ glosowanie.punkt.tytul }}</p>
+
+<p><a href='{{ glosowanie.sejmometr_url }}' target='_blank'>Głosowanie w Sejmometrze.</a></p>
+
+<div class="vote-buttons">
+<form method="post" 
+	action="
+		{% if my_vote.vote == 1 %}
+			{% url people_unvote glosowanie.id %}
+		{% else %}
+			{% url people_vote glosowanie.id %}
+		{% endif %}">
+	<input type="hidden" name="vote" value="1" />
+	{% csrf_token %}
+	<button class="aye{% if my_vote.vote == 2 %} inactive{% endif %}">
+		{% if my_vote.vote == 1 %}<div class='comment'>głosujesz</div>{% endif %}
+		za
+	</button>
+</form>
+
+<form method="post" 
+	action="
+		{% if my_vote.vote == 2 %}
+			{% url people_unvote glosowanie.id %}
+		{% else %}
+			{% url people_vote glosowanie.id %}
+		{% endif %}">
+	<input type="hidden" name="vote" value="2" />
+	{% csrf_token %}
+	<button class="nay{% if my_vote.vote == 1 %} inactive{% endif %}">
+		{% if my_vote.vote == 2 %}<div class='comment'>głosujesz</div>{% endif %}
+		przeciw
+	</button>
+</form>
+</div>
+
+
+{% endblock %}

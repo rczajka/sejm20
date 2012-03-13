@@ -1,0 +1,9 @@
+{% load people_tags %}
+
+<a class="link glosowanie-link" href="{{ obj.get_absolute_url }}">
+	<div>
+		<span class="title">{{ obj.nazwa }}</span>
+		<span class="comment">({{ obj.posel_set.count }})</span>
+	</div>
+    {% if rating != None %}<div class="subtitle">(zgodność: {% rating rating %})</div>{% endif %}
+</a>

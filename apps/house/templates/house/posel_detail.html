@@ -1,0 +1,21 @@
+{% extends "site_base.html" %}
+{% load people_tags %}
+
+
+{% block head_title %}{{ posel }}{% endblock %}
+
+
+{% block body %}
+
+<p><a href="{% url people_ranking %}">posłowie</a> &raquo;</p>
+    <h1>{{ posel }}</h1>
+
+<p>Zgodność: {% rating_long rating %}</p>
+
+{% if posel.klub %}
+	<p>Klub: <a href='{{ posel.klub.get_absolute_url }}'>{{ posel.klub }}.</a></p>
+{% endif %}
+
+<p><a href="{{ posel.sejmometr_url }}">{{ posel.nazwa }} w Sejmometrze</a></p>
+
+{% endblock %}

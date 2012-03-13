@@ -1,0 +1,23 @@
+{% extends "site_base.html" %}
+{% load house_tags people_tags %}
+
+
+{% block head_title %}{{ klub.nazwa }} ({{ klub.skrot }}){% endblock %}
+
+
+{% block body %}
+    <h1>{{ klub.nazwa }} ({{ klub.skrot }})</h1>
+
+<p>Zgodność: {% rating_long rating %}</p>
+
+<p><a href="{{ klub.sejmometr_url }}" target="_blank">{{ klub.nazwa }} w Sejmometrze.</a></p>
+
+
+<h2>Ranking posłów i posłanek klubu</h2>
+
+<ol class="blinken text">
+	{% for d, r in deputys %}
+		<li>{% posel_link d r %} </li>
+	{% endfor %}
+</ol>
+{% endblock %}

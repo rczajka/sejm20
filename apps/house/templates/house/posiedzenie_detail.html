@@ -1,0 +1,19 @@
+{% extends "site_base.html" %}
+{% load house_tags %}
+
+
+{% block head_title %}Posiedzenie {{ posiedzenie.tytul }}{% endblock %}
+
+
+
+{% block body %}
+    <h1>Posiedzenie {{ posiedzenie.tytul }}</h1>
+
+<ul class="blinken text">
+{% for p in punkty %}
+    <li><a href="{{ p.get_absolute_url }}">{% punkt_link p %}</a></li>
+{% endfor %}
+</ul>
+
+
+{% endblock %}

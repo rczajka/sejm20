@@ -1,0 +1,53 @@
+{% extends "site_base.html" %}
+{% load url from future %}
+{% load avatar_tags %}
+{% load house_tags people_tags %}
+
+
+{% block head_title %}Użytkownik: {{ user.username }}{% endblock %}
+
+
+
+{% block body %}
+<h1>{% avatar user 40 %} Użytkownik: {{ user.username }}</h1>
+
+{% if request.user != user %}
+{% if request.user|follows:user %}
+	<form method='post' action="{% url "people_unfollow" user.username %}">
+		{% csrf_token %}
+		<input type="submit" value="Odłącz" />
+	</form>
+{% else %}
+	<form method='post' action="{% url "people_follow" user.username %}">
+		{% csrf_token %}
+		<input type="submit" value="Dołącz" />
+	</form>
+{% endif %}
+{% endif %}
+
+
+<h2>Ma zaufanie do:</h2>
+
+<ul class="blinken">
+	{% for f in user.follows.all %}
+	<li>{% user_link f.followed %}</li>
+	{% endfor %}
+</ul>
+
+<h2>Mają do niego zaufanie:</h2>
+
+<ul class="blinken">
+	{% for f in user.followers.all %}
+	<li>{% user_link f.follower %}</li>
+	{% endfor %}
+</ul>
+
+<h2>Ocenione głosowania:</h2>
+
+<ul class="blinken text">
+	{% for v in user.vote_set.all %}
+	<li>{% glosowanie_link v.glosowanie %}</li>
+	{% endfor %}
+</ul>
+
+{% endblock %}

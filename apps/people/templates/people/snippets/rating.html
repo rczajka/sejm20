@@ -1,0 +1,9 @@
+{% if no_rating %}
+	{% if long %}
+		Musisz się <a href="{% url account_login %}"zalogować</a>, aby ocenić zgodność.
+	{% else %}
+		—
+	{% endif %} 
+{% else %}
+	{{ rating }}%
+{% endif %}

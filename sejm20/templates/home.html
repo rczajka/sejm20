@@ -1,0 +1,60 @@
+{% extends "site_base.html" %}
+{% load url from future %}
+{% load avatar_tags %}
+{% load house_tags people_tags %}
+
+{% block full_title %}Sejm 2.0{% endblock %}
+
+{% block body %}
+
+<section id="what">
+	<h1>O co chodzi?</h1>
+
+	<p>Oceniając posłów i posłanki, musisz odpowiedzieć sobie na jedno ważne pytanie:
+		<strong>kto głosuje zgodnie z&nbsp;Twoimi poglądami</strong>. A potem świadomie wybierać.</p>
+
+	<p>W serwisie <strong class="name">Sejm 2.0</strong>:</p>
+	<ul>
+		<li><strong>oceniasz konkretne głosowania</strong>, a nie hasła i deklaracje,</li>
+		<li><strong>opierasz się na ocenach</strong> osób i organizacji, którym ufasz, bo przecież nikt nie zna się na wszystkim,</li>
+		<li><strong>otrzymujesz wiedzę,</strong> którzy posłowie i które kluby głosują zgodnie z Twoimi przekonaniami.</li>
+		<li>…</li>
+		<li>Profit!</li>
+	</ul>
+
+	<p>Proste?</p>
+
+</section>
+
+
+<section id="main-votings">
+<h2>Ciekawe głosowania</h2>
+<ul class="blinken text">
+{% for g in glosowania %}
+    <li>{% glosowanie_link g %}</li>
+{% endfor %}
+</ul>
+</section>
+
+
+<section id="main-sessions">
+<h2>Wszystkie posiedzenia</h2>
+<ul class="blinken text">
+{% for p in posiedzenia %}
+    <li>{% posiedzenie_link p %}</li>
+{% endfor %}
+</ul>
+</section>
+
+
+<section id="main-users">
+<h2>Użytkownicy</h2>
+<ul class="blinken">
+{% for u in users %}
+    <li>{% user_link u %}</li>
+{% endfor %}
+</ul>
+</section>
+
+
+{% endblock %}

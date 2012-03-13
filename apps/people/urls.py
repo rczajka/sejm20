@@ -1,0 +1,11 @@
+from django.conf.urls.defaults import *
+
+urlpatterns = patterns('people.views',
+    url(r'^$', 'my_page', name='people_home'),
+    url(r'^u/(?P<username>[^/]*)/$', 'user', name='people_user'),
+    url(r'^dolacz/(?P<username>[^/]*)/$', 'follow', name='people_follow'),
+    url(r'^odlacz/(?P<username>[^/]*)/$', 'unfollow', name='people_unfollow'),
+    url(r'^glosuj/(?P<pk>\d+)/$', 'vote', name='people_vote'),
+    url(r'^odglosuj/(?P<pk>\d+)/$', 'unvote', name='people_unvote'),
+    url(r'^ranking/', 'rank', name='people_ranking'),
+)

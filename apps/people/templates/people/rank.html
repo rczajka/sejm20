@@ -1,0 +1,36 @@
+{% extends "site_base.html" %}
+{% load url from future %}
+{% load house_tags %}
+
+
+{% block head_title %}Ranking posłów{% endblock %}
+
+
+
+{% block body %}
+
+<h1>Kto głosuje zgodnie z moimi poglądami?</h1>
+
+
+<section id="ranking-poslowie">
+	<h2>Posłowie i posłanki</h2>
+<ol class="blinken text">
+	{% for d, r in deputys %}
+		<li>{% posel_link d r %} </li>
+	{% endfor %}
+</ol>
+</section>
+
+
+<section id="ranking-kluby">
+	<h2>Kluby poselskie</h2>
+<ol class="blinken text">
+	{% for d, r in clubs %}
+		<li>{% klub_link d r %} </li>
+	{% endfor %}
+</ol>
+</section>
+
+
+
+{% endblock %}

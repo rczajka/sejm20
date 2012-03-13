@@ -1,0 +1,271 @@
+$strong: #BF2836;
+$verylight: #D9D6D4;
+$light: #A3988E;
+$medium: #505246;
+$dark: #222E2B;
+$verydark: #0F1C1F;
+$header: 3em;
+$headertop: .25em;
+
+@import url(http://fonts.googleapis.com/css?family=Magra&subset=latin,latin-ext);
+
+
+.cl {
+	clear: both;
+}
+
+html {
+	margin: 0;
+	padding: 0;
+}
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Magra;
+	background-color: $dark;
+	color: $light;
+}
+.cl {
+	clear: both;
+}
+a {
+	text-decoration: none;
+	color: $strong;
+}
+a img {
+	border: 0;
+}
+
+
+header {
+	background-color: $verydark;
+	color: $light;
+	padding-top: $headertop;
+	box-shadow: 0 .4em .3em $light;
+	height: $header - $headertop;
+	position: relative;
+	z-index:1;
+}
+#content-wrapper {
+	background-color: white;
+	color: $verydark;
+	padding-bottom: 5em;
+	min-height: 40em;
+}
+#header, #content, #footer {
+	width: 60em;
+	margin: auto;
+}
+header a {
+	color: white;
+}
+#user-area {
+	float: right;
+	margin-top: .5em;
+	.text {
+		font-size: .9em;
+	}
+}
+.top-avatar img {
+	vertical-align: top;
+	margin-top: -($headertop + .5em);
+	margin-right: 1em;
+	height: $header;
+	width: $header;
+} 
+
+
+#logo {
+	font-size: 2em;
+	display: inline-block;
+
+	em {
+		font-size: .5em;
+		color: $strong;
+	}
+}
+
+
+#content {
+	padding: 1em 0;
+}
+
+h1 {
+	font-weight: normal;
+	font-size: 2.5em;
+}
+h2 {
+	font-weight: normal;
+	font-size: 2em;
+}
+
+
+button.aye, button.nay {
+}
+
+div.vote-buttons {
+	margin: 2em auto;
+	text-align: center;
+}
+.vote-buttons form {
+	display: inline;
+	margin: 1em;
+}
+
+
+button.aye {
+	font-size: 2em;
+
+	background: #27bc2c; /* Old browsers */
+background: -moz-linear-gradient(top, #27bc2c 0%, #1d8c21 44%, #0a660d 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#27bc2c), color-stop(44%,#1d8c21), color-stop(100%,#0a660d)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #27bc2c 0%,#1d8c21 44%,#0a660d 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #27bc2c 0%,#1d8c21 44%,#0a660d 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #27bc2c 0%,#1d8c21 44%,#0a660d 100%); /* IE10+ */
+background: linear-gradient(top, #27bc2c 0%,#1d8c21 44%,#0a660d 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#27bc2c', endColorstr='#0a660d',GradientType=0 ); /* IE6-9 */
+}
+button.nay {
+	font-size: 2em;
+
+background: #bf2836; /* Old browsers */
+background: -moz-linear-gradient(top,  #bf2836 0%, #8e1d27 44%, #660a11 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bf2836), color-stop(44%,#8e1d27), color-stop(100%,#660a11)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #bf2836 0%,#8e1d27 44%,#660a11 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #bf2836 0%,#8e1d27 44%,#660a11 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #bf2836 0%,#8e1d27 44%,#660a11 100%); /* IE10+ */
+background: linear-gradient(top,  #bf2836 0%,#8e1d27 44%,#660a11 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bf2836', endColorstr='#660a11',GradientType=0 ); /* IE6-9 */
+}
+
+.vote-buttons button {
+	color: white;
+	padding: 1em;
+	width: 8em;
+
+	.comment {
+		font-size: .5em;
+	}	
+}
+
+.vote-buttons button.inactive {
+	font-size: 1.5em;
+background: #bababa; /* Old browsers */
+background: -moz-linear-gradient(top, #bababa 0%, #878787 44%, #666666 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bababa), color-stop(44%,#878787), color-stop(100%,#666666)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #bababa 0%,#878787 44%,#666666 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #bababa 0%,#878787 44%,#666666 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #bababa 0%,#878787 44%,#666666 100%); /* IE10+ */
+background: linear-gradient(top, #bababa 0%,#878787 44%,#666666 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bababa', endColorstr='#666666',GradientType=0 ); /* IE6-9 */
+}
+
+
+
+
+footer {
+	clear: both;
+	padding:1em;
+	text-align: right;
+	position:relative;
+	z-index:1;
+	box-shadow: 0 -.4em .3em $light;
+
+	p {
+		font-size: .8em;
+	}
+	a {
+		color: white;
+	}
+}
+
+
+ul.blinken {
+	list-style:none;
+	margin: 0;
+	padding: 0;
+}
+.blinken {
+
+	li {
+		margin: .5em 0;
+		a {
+			padding: 0 .5em;
+			display: block;
+		}
+		img {
+			vertical-align: middle;
+		}
+	}
+	li:hover {
+		background-color: $verylight;
+	}
+}
+ul.blinken.text a {
+	padding: .5em;
+}
+
+
+#main-sessions, #main-users, #main-votings {
+	float:left;
+	margin-bottom: 4em;
+}
+
+#main-sessions, #main-users {
+	width: 35%;
+}
+
+#main-votings {
+	width: 60%;
+	margin-right: 5%;
+}
+
+.link {
+	.title {
+		font-size: 1.1em;
+		font-family: Magra;
+	}
+	.comment {
+		color: $light;
+		font-style: italic;
+		font-size: .9em;
+	}
+	.subtitle {
+		font-size: .9em;
+		color: $dark;
+	}
+}
+.empty {
+	.title {
+		color: $light;
+	}
+}
+
+
+fieldset {
+	border: 0;
+}
+
+
+#ranking-poslowie {
+	float: left;
+	width: 60%;
+	margin-right: 5%;
+}
+#ranking-kluby {
+	float: left;
+}
+
+
+#what {
+	padding: 2em 8em 2em 8em;
+	border-bottom: 1px solid $strong;
+	color: $dark;
+
+	h1 {
+		color: black;
+	}
+	.name {
+		color: black;
+	}
+}

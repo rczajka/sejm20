@@ -1,0 +1,9 @@
+<a class="link glosowanie-link" href="{{ obj.get_absolute_url }}">
+	<div>
+		<span class="title">{{ obj.tytul }}</span>
+		<span class="comment">
+			(posiedzenie&nbsp;{{ obj.posiedzenie.tytul }}, głosowanie&nbsp;{{ obj.nr }})
+		</span>
+	</div>
+    <div class="subtitle">({{ obj.time }})</div>
+</a>

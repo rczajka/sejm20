@@ -1,0 +1,17 @@
+{% extends "site_base.html" %}
+
+
+{% block head_title %}Punkt: {{ punkt.tytul }}{% endblock %}
+
+
+{% block body %}
+    <h1>Punkt: {{ punkt.tytul }}</h1>
+
+<ul>
+{% for g in glosowania %}
+    <li><a href="{{ g.get_absolute_url }}">{{ g.tytul }}</a></li>
+{% endfor %}
+</ul>
+
+
+{% endblock %}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+{% load compressed %}
+{% load avatar_tags %}
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>{% block full_title %}Sejm 2.0 :: {% block head_title %}{% endblock %}{% endblock %}</title>
+    {% compressed_css "all" %}
+</head>
+
+<body>
+
+<header><div id="header">
+	<a href="/" id="logo">Sejm 2.0 <em>alpha</em></a>
+	<div id="user-area">
+		{% if request.user.is_authenticated %}
+			<span class="top-avatar">
+				{% avatar request.user 40 %}
+			</span>
+			<span class="text">
+			{{ request.user }} |
+			{% if request.user.is_staff %}<a href="{% url admin:index %}">administracja</a> | {% endif %}
+			<a href="{% url people_ranking %}">ranking</a> |
+			<a href="{% url account_email %}">e-mail</a> |
+			<a href="{% url account_change_password %}">hasło</a> |
+			<a href="{% url account_logout %}">wyloguj</a>
+			</span>
+		{% else %}
+			<span>
+			<a href="{% url account_login %}">zaloguj</a> |
+			<a href="{% url account_signup %}">załóż konto</a>
+			</span>
+		{% endif %}
+		
+	</div>
+	<div class="cl"></div>
+</div></header>
+
+
+
+<div id="content-wrapper"><div id="content">
+{% block body %}{% endblock %}
+<div class="cl"></div>
+</div></div>
+
+
+
+<footer><div id="footer">
+	<p>Autor: Radek Czajka.
+	Dane pochodzą z <a href="http://sejmometr.pl">Sejmometru</a>.</p>
+</div></footer>
+
+</body>
+
+</html>

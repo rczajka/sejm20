@@ -1,0 +1,1 @@
+../../sejmpy/sejmometr.py
