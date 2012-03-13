@@ -4,7 +4,7 @@ API for the people app. Views should only access models through here.
 
 @author: Radek Czajka
 '''
-from collections import Counter, defaultdict
+from collections import defaultdict
 from house.models import Posel, Klub
 from people.models import Vote, Followship
 
@@ -58,8 +58,8 @@ def rank(user, posel_ids=None):
     if not user.is_authenticated():
         return [(p, None) for p in poslowie]
 
-    totals = defaultdict(Counter)
-    goods = defaultdict(Counter)
+    totals = defaultdict(dict)
+    goods = defaultdict(dict)
     my_votes = set()
 
     # first count my votes
@@ -68,9 +68,9 @@ def rank(user, posel_ids=None):
         for posel_id, klub_id, glos in vote.glosowanie.wyniki:
             if posel_ids and posel_id not in posel_ids:
                 continue
-            totals[posel_id][vote.id] += 1
+            totals[posel_id][vote.id] = totals[posel_id].get(vote.id, 0) + 1
             if glos == vote.vote:
-                goods[posel_id][vote.id] += 1
+                goods[posel_id][vote.id] = goods[posel_id].get(vote.id, 0) + 1
 
     # count followed for followed people votes
     for flw in user.follows.all():
@@ -78,9 +78,9 @@ def rank(user, posel_ids=None):
             for posel_id, klub_id, glos in vote.glosowanie.wyniki:
                 if posel_ids and posel_id not in posel_ids:
                     continue
-                totals[posel_id][vote.id] += 1
+                totals[posel_id][vote.id] = totals[posel_id].get(vote.id, 0) + 1
                 if glos == vote.vote:
-                    goods[posel_id][vote.id] += 1
+                    goods[posel_id][vote.id] = goods[posel_id].get(vote.id, 0) + 1
 
     ratings = []
 
