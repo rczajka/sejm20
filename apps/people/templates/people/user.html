@@ -9,7 +9,7 @@
 
 
 {% block body %}
-<h1>{% avatar user 40 %} Użytkownik: {{ user.username }}</h1>
+<h1>{% avatar user 48 %} Użytkownik: {{ user.username }}</h1>
 
 {% if request.user != user %}
 {% if request.user|follows:user %}
@@ -46,7 +46,7 @@
 
 <ul class="blinken text">
 	{% for v in user.vote_set.all %}
-	<li>{% glosowanie_link v.glosowanie %}</li>
+	<li>{% glosowanie_link v.glosowanie v.vote_string %}</li>
 	{% endfor %}
 </ul>
 

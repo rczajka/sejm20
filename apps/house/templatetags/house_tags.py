@@ -3,8 +3,8 @@ import people.api
 register = template.Library()
 
 
-def inclusion_tag(name):
-    f = lambda o: {'obj': o}
+def inclusion_tag(name, more=None):
+    f = lambda o, more=None: {'obj': o, 'more': more}
     f.__name__ = name
     return f
 

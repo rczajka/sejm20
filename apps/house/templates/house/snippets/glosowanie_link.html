@@ -4,6 +4,9 @@
 		<span class="comment">
 			(posiedzenie&nbsp;{{ obj.posiedzenie.tytul }}, głosowanie&nbsp;{{ obj.nr }})
 		</span>
+		{% if more %}
+			<strong>({{ more }})</strong>
+		{% endif %}
 	</div>
     <div class="subtitle">({{ obj.time }})</div>
 </a>
