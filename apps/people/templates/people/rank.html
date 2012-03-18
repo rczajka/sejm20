@@ -11,6 +11,19 @@
 
 <h1>Kto głosuje zgodnie z moimi poglądami?</h1>
 
+<div class="left-column">
+{% if not logged_in %}
+    <p>Zalogowani użytkownicy mogą zobaczyć listę
+        uszeregowaną według zgodności poglądów z własnymi, nie tylko taką alfabetyczną jak niżej.</p>
+{% elif not voted and not follows %}
+    <p>Aby zobaczyć listę uszeregowaną według zgodności z Twoimi poglądami,
+        oceń jakieś głosowania albo zaufaj ocenom innych.</p>
+{% elif not voted %}
+    <p>Pamiętaj, że możesz też głosować samodzielnie!</p>
+{% elif not follows %}
+    <p>Pamiętaj, że możesz też zaufać ocenom innych!</p>
+{% endif %}
+</div>
 
 <section id="ranking-poslowie">
 	<h2>Posłowie i posłanki</h2>

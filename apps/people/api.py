@@ -7,6 +7,7 @@ API for the people app. Views should only access models through here.
 from collections import defaultdict
 from house.models import Posel, Klub
 from people.models import Vote, Followship
+from django.db.models import Count
 
 
 def follow(user1, user2):
@@ -102,6 +103,9 @@ def rate(user, posel):
 
 def rank_clubs(user):
     """Returks all the clubs, ranked by rating."""
+    if not user.is_authenticated():
+        return ((k, None) for k in Klub.objects.all().annotate(c=Count('posel')).order_by('-c'))
+
     clubs = defaultdict(list)
     for deputy, rating in rank(user):
         if deputy.klub is not None:

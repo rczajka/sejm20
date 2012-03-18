@@ -95,7 +95,7 @@ AUTHENTICATION_BACKENDS = (
 
 EMAIL_CONFIRMATION_DAYS = 3
 
-LOGIN_REDIRECT_URL = "/p/"
+LOGIN_REDIRECT_URL = "/uzytkownik/"
 
 INSTALLED_APPS = [
     'django.contrib.auth',

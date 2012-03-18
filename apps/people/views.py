@@ -25,8 +25,11 @@ def unvote(request, pk):
     return HttpResponseRedirect(glosowanie.get_absolute_url())
 
 
-@login_required
 def rank(request):
+    logged_in = request.user.is_authenticated()
+    if logged_in:
+        voted = request.user.vote_set.exists()
+        follows = request.user.follows.exists()
     deputys = api.rank(request.user)
     clubs = api.rank_clubs(request.user)
     return render(request, "people/rank.html", locals())

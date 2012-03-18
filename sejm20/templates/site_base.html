@@ -18,15 +18,16 @@
 				{% avatar request.user 48 %}
 			</span>
 			<span class="text">
-			{{ request.user }} |
+			<a href="{% url people_home %}">{{ request.user }}</a> |
 			{% if request.user.is_staff %}<a href="{% url admin:index %}">administracja</a> | {% endif %}
-			<a href="{% url people_ranking %}">ranking</a> |
+			<a href="{% url people_ranking %}">posłowie i posłanki</a> |
 			<a href="{% url account_email %}">e-mail</a> |
 			<a href="{% url account_change_password %}">hasło</a> |
 			<a href="{% url account_logout %}">wyloguj</a>
 			</span>
 		{% else %}
 			<span>
+            <a href="{% url people_ranking %}">posłowie i posłanki</a> |
 			<a href="{% url account_login %}">zaloguj</a> |
 			<a href="{% url account_signup %}">załóż konto</a>
 			</span>
