@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Django settings for sejm20 project.
 import os.path
-from settings.pipeline import *
+from sejm20.settings.static import *
 
 
 PROJECT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -49,48 +49,8 @@ USE_I18N = True
 # calendars according to the current locale
 USE_L10N = True
 
-# Absolute filesystem path to the directory that will hold user-uploaded files.
-# Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = os.path.join(PROJECT_DIR, '../media')
-
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash.
-# Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = '/media/'
-
-# Absolute path to the directory static files should be collected to.
-# Don't put anything in this directory yourself; store your static files
-# in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = os.path.join(PROJECT_DIR, '../static')
-
-# URL prefix for static files.
-# Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
-
-# URL prefix for admin static files -- CSS, JavaScript and images.
-# Make sure to use a trailing slash.
-# Examples: "http://foo.com/static/admin/", "/static/admin/".
-ADMIN_MEDIA_PREFIX = '/static/admin/'
-
 #LOGIN_URL = '/zaloguj/'
 #LOGOUT_URL = '/wyloguj/'
-
-# Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    os.path.join(PROJECT_DIR, 'static/'),
-)
-
-# List of finder classes that know how to find static files in
-# various locations.
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
-)
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = [
@@ -133,11 +93,7 @@ AUTHENTICATION_BACKENDS = (
         'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-#ACCOUNT_EMAIL_AUTHENTICATION = True
 EMAIL_CONFIRMATION_DAYS = 3
-#FACEBOOK_APP_ID = '375200415831518'
-#FACEBOOK_SECRET_KEY = '1cf342ccfb746fa9ee3789b39a889517'
-#FACEBOOK_REQUEST_PERMISSIONS = ''
 
 LOGIN_REDIRECT_URL = "/p/"
 
@@ -195,6 +151,6 @@ LOGGING = {
 
 # Load localsettings, if they exist
 try:
-    from localsettings import *
+    from sejm20.localsettings import *
 except ImportError:
     pass
