@@ -6,9 +6,12 @@
 
 
 {% block body %}
-    <h1>{{ glosowanie.tytul }}</h1>
-
-<p>{{ glosowanie.punkt.tytul }}</p>
+<p class="breadcrumbs">
+    posiedzenia &raquo;
+    <a href="{{ glosowanie.punkt.posiedzenie.get_absolute_url }}">posiedzenie {{ glosowanie.punkt.posiedzenie.tytul }}</a> &raquo;
+    <a href="{{ glosowanie.punkt.get_absolute_url }}">punkt {{ glosowanie.punkt.nr}}: {{ glosowanie.punkt.tytul }}</a> &raquo;
+</p>
+<h1>{{ glosowanie.tytul }}</h1>
 
 <p><a href='{{ glosowanie.sejmometr_url }}' target='_blank'>Głosowanie w Sejmometrze.</a></p>
 

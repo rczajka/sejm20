@@ -7,8 +7,13 @@
 
 {% block body %}
 
-<p><a href="{% url people_ranking %}">posłowie</a> &raquo;</p>
-    <h1>{{ posel }}</h1>
+<p class="breadcrumbs">
+    <a href="{% url people_ranking %}">posłowie i posłanki</a> &raquo;
+    {% if posel.klub %}
+        <a href="{{ posel.klub.get_absolute_url }}">{{ posel.klub.skrot }}</a> &raquo;
+    {% endif %}
+</p>
+<h1>{{ posel }}</h1>
 
 <p>Zgodność: {% rating_long rating %}</p>
 
