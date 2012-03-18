@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # Django settings for sejm20 project.
 import os.path
+
+from sejm20.settings.auth import *
 from sejm20.settings.static import *
 
 
@@ -87,15 +89,6 @@ TEMPLATE_DIRS = [
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(PROJECT_DIR, 'templates'),
 ]
-
-AUTHENTICATION_BACKENDS = (
-        'django.contrib.auth.backends.ModelBackend',
-        'allauth.account.auth_backends.AuthenticationBackend',
-)
-
-EMAIL_CONFIRMATION_DAYS = 3
-
-LOGIN_REDIRECT_URL = "/uzytkownik/"
 
 INSTALLED_APPS = [
     'django.contrib.auth',
