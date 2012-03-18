@@ -9,6 +9,8 @@
 {% block body %}
     <h1>Posiedzenie {{ posiedzenie.tytul }}</h1>
 
+<p><a href='{{ posiedzenie.sejmometr_url }}' target='_blank'>Posiedzenie w Sejmometrze.</a></p>
+
 <ul class="blinken text">
 {% for p in punkty %}
     <li><a href="{{ p.get_absolute_url }}">{% punkt_link p %}</a></li>

@@ -7,6 +7,8 @@
 {% block body %}
     <h1>Punkt: {{ punkt.tytul }}</h1>
 
+<p><a href='{{ punkt.sejmometr_url }}' target='_blank'>Punkt w Sejmometrze.</a></p>
+
 <ul>
 {% for g in glosowania %}
     <li><a href="{{ g.get_absolute_url }}">{{ g.tytul }}</a></li>

@@ -16,12 +16,15 @@ class Klub(ModelFromApi):
     nazwa = models.CharField(max_length=128)
     skrot = models.CharField(max_length=16)
 
+    def __unicode__(self):
+        return self.nazwa
+
     @models.permalink
     def get_absolute_url(self):
         return ('house_klub', [self.pk])
 
-    def __unicode__(self):
-        return self.nazwa
+    def sejmometr_url(self):
+        return "http://sejmometr.pl/%s" % self.skrot
 
     @classmethod
     def update(cls):
@@ -47,12 +50,12 @@ class Posel(ModelFromApi):
     def __unicode__(self):
         return "%s %s" % (self.imie, self.nazwisko)
 
-    def sejmometr_url(self):
-        return "http://sejmometr.pl/%s" % self.slug
-
     @models.permalink
     def get_absolute_url(self):
         return ('house_posel', [self.slug])
+
+    def sejmometr_url(self):
+        return "http://sejmometr.pl/%s" % self.slug
 
     @classmethod
     def update(cls):
@@ -88,6 +91,9 @@ class Posiedzenie(ModelFromApi):
     def get_absolute_url(self):
         return ('house_posiedzenie', [self.pk])
 
+    def sejmometr_url(self):
+        return "http://sejmometr.pl/posiedzenia/%d" % self.pk
+
     @classmethod
     def update(cls):
         import sejmometr
@@ -117,6 +123,9 @@ class Punkt(ModelFromApi):
     @models.permalink
     def get_absolute_url(self):
         return ('house_punkt', [self.pk])
+
+    def sejmometr_url(self):
+        return "http://sejmometr.pl/punkt/%d" % self.pk
 
     @classmethod
     def update(cls):
