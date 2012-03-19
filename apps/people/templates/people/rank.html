@@ -1,29 +1,38 @@
 {% extends "site_base.html" %}
 {% load url from future %}
-{% load house_tags %}
+{% load house_tags people_tags %}
 
 
 {% block head_title %}Ranking posłów{% endblock %}
 
 
 
-{% block body %}
+{% block leftcolumn %}
 
 <h1>Kto głosuje zgodnie z moimi poglądami?</h1>
 
-<div class="left-column">
 {% if not logged_in %}
-    <p>Zalogowani użytkownicy mogą zobaczyć listę
+    <p class="remember">Zalogowani użytkownicy mogą zobaczyć listę
         uszeregowaną według zgodności poglądów z własnymi, nie tylko taką alfabetyczną jak niżej.</p>
 {% elif not voted and not follows %}
-    <p>Aby zobaczyć listę uszeregowaną według zgodności z Twoimi poglądami,
-        oceń jakieś głosowania albo zaufaj ocenom innych.</p>
+    <p class="remember">Aby zobaczyć listę uszeregowaną według zgodności z Twoimi poglądami,
+        najpierw oceń jakieś głosowania albo zaufaj ocenom innych.</p>
 {% elif not voted %}
-    <p>Pamiętaj, że możesz też głosować samodzielnie!</p>
+    <p class="remember">Pamiętaj, że możesz też głosować samodzielnie!</p>
 {% elif not follows %}
-    <p>Pamiętaj, że możesz też zaufać ocenom innych!</p>
+    <p class="remember">Pamiętaj, że możesz też zaufać ocenom innych!</p>
 {% endif %}
-</div>
+
+
+<section id="ranking-kluby">
+    <h2>Kluby poselskie</h2>
+<ol class="blinken text">
+    {% for d, r in clubs %}
+        <li>{% klub_link d r %} </li>
+    {% endfor %}
+</ol>
+</section>
+
 
 <section id="ranking-poslowie">
 	<h2>Posłowie i posłanki</h2>
@@ -33,17 +42,16 @@
 	{% endfor %}
 </ol>
 </section>
+{% endblock leftcolumn %}
 
 
-<section id="ranking-kluby">
-	<h2>Kluby poselskie</h2>
-<ol class="blinken text">
-	{% for d, r in clubs %}
-		<li>{% klub_link d r %} </li>
-	{% endfor %}
-</ol>
-</section>
-
-
-
-{% endblock %}
+{% block rightcolumn %}
+{% if request.user.is_authenticated %}
+    <h3>Ocenionych głosowań:</h3>
+    {{ request.user.vote_set.count }}
+    <h3>Zaufani użytkownicy:</h3>
+    {% users_inline_links request.user.follows.all %}
+{% else %}
+    {% include "account/sign_ing.html" %}
+{% endif %}
+{% endblock rightcolumn %}

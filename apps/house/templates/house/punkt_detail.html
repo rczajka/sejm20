@@ -1,24 +1,33 @@
 {% extends "site_base.html" %}
+{% load house_tags %}
 
 
 {% block head_title %}Punkt: {{ punkt.tytul }}{% endblock %}
 
 
-{% block body %}
-
+{% block leftcolumn %}
 <p class="breadcrumbs">
-    posiedzenia &raquo;
+    <a href="{% url house_posiedzenia %}">posiedzenia</a> &raquo;
     <a href="{{ punkt.posiedzenie.get_absolute_url }}">posiedzenie {{ punkt.posiedzenie.tytul }}</a> &raquo;
 </p>
 <h1>Punkt {{ punkt.nr }}: {{ punkt.tytul }}</h1>
 
-<p><a href='{{ punkt.sejmometr_url }}' target='_blank'>Punkt w Sejmometrze.</a></p>
-
-<ul>
+<ul class="blinken">
 {% for g in glosowania %}
-    <li><a href="{{ g.get_absolute_url }}">{{ g.tytul }}</a></li>
+    <li>{% glosowanie_link g %}</li>
 {% endfor %}
 </ul>
+{% endblock leftcolumn %}
 
 
-{% endblock %}
+{% block rightcolumn %}
+    <p><a href='{{ punkt.sejmometr_url }}' target='_blank'>Punkt w Sejmometrze.</a></p>
+    {% if punkt.druki.exists %}
+        <h3>Druki:</h3>
+        <ul class="blinken">
+        {% for druk in punkt.druki.all %}
+            <li>{% druk_link druk %}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock rightcolumn %}

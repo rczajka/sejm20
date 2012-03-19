@@ -1,9 +1,11 @@
+{% load people_tags %}
 {% with c=obj.glosowanie_set.count %}
 <a class="link punkt-link{% if c == 0 %} empty{% endif %}" href="{{ obj.get_absolute_url }}">
 	<div>
 		<span class="title">{{ obj.tytul }}</span>
 		<span class="comment">({{ c }} głos.)</span>
 	</div>
-    	<div class="subtitle">(posiedzenie {{ obj.posiedzenie.tytul }}, nr {{ obj.nr }})</div>
+    {% users_inline users 16 %}
+    <div class="subtitle">(posiedzenie {{ obj.posiedzenie.tytul }}, nr {{ obj.nr }})</div>
 </a>
 {% endwith %}

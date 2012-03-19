@@ -1,0 +1,21 @@
+{% extends "site_base.html" %}
+{% load house_tags %}
+
+
+{% block head_title %}Posiedzenia{% endblock %}
+
+
+{% block leftcolumn %}
+<h1>Posiedzenia</h1>
+
+<ul class="blinken text">
+{% for p in posiedzenia %}
+    <li>{% posiedzenie_link p %}</li>
+{% endfor %}
+</ul>
+{% endblock leftcolumn %}
+
+
+{% block rightcolumn %}
+<p><a href='http://sejmometr.pl/kalendarz' target='_blank'>Kalendarz posiedzeń w&nbsp;Sejmometrze.</a></p>
+{% endblock rightcolumn %}

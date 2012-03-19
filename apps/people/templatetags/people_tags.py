@@ -33,3 +33,20 @@ def rating_long(rating):
         "no_rating": rating is None,
         "long": True,
     }
+
+
+@register.inclusion_tag("people/snippets/voting_on.html")
+def voting_on(glosowanie):
+    users = ([], [])
+    for v in glosowanie.vote_set.all():
+        users[v.vote - 1].append(v.user)
+    return {'users': users}
+
+
+@register.inclusion_tag("people/snippets/users_inline.html")
+def users_inline(users, size=32):
+    return locals()
+
+@register.inclusion_tag("people/snippets/users_inline_links.html")
+def users_inline_links(users, size=32):
+    return locals()

@@ -1,0 +1,14 @@
+{% load avatar_tags %}
+<div class="user-inlines">
+    {% if users %}
+        {% spaceless %}
+        {% for u in users %}
+            <a href="{% url people_user u %}">
+                <img src="{% avatar_url u size %}" alt="{{ u.username }}" title="{{ u.username }}" />
+            </a>
+        {% endfor %}
+        {% endspaceless %}
+    {% else %}
+        <span class="user-inlines-empty">brak</span>
+    {% endif %}
+</div>

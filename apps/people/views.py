@@ -59,4 +59,6 @@ def my_page(request):
 
 def user(request, username):
     user = get_object_or_404(User, username=username)
+    follows = api.followed(user)
+    followers = api.followers(user)
     return render(request, "people/user.html", locals())

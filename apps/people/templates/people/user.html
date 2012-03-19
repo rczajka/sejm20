@@ -4,45 +4,19 @@
 {% load house_tags people_tags %}
 
 
-{% block head_title %}Użytkownik: {{ user.username }}{% endblock %}
+{% block head_title %}{{ user.username }}{% endblock %}
 
 
 
-{% block body %}
-<h1>{% avatar user 48 %} Użytkownik: {{ user.username }}</h1>
-
-{% if request.user != user %}
-{% if request.user|follows:user %}
-	<form method='post' action="{% url "people_unfollow" user.username %}">
-		{% csrf_token %}
-		<input type="submit" value="Odłącz" />
-	</form>
-{% else %}
-	<form method='post' action="{% url "people_follow" user.username %}">
-		{% csrf_token %}
-		<input type="submit" value="Dołącz" />
-	</form>
-{% endif %}
-{% endif %}
+{% block leftcolumn %}
+<h1>
+{% if request.user == user %}<a title="zmień obraz" href="{% url "avatar_change" %}">{% endif %}
+<img class="avatar-big" alt="{{ user }}" src="{% avatar_url user 64 %}" />
+{% if request.user == user %}</a>{% endif %}
+{{ user.username }}</h1>
 
 
-<h2>Ma zaufanie do:</h2>
-
-<ul class="blinken">
-	{% for f in user.follows.all %}
-	<li>{% user_link f.followed %}</li>
-	{% endfor %}
-</ul>
-
-<h2>Mają do niego zaufanie:</h2>
-
-<ul class="blinken">
-	{% for f in user.followers.all %}
-	<li>{% user_link f.follower %}</li>
-	{% endfor %}
-</ul>
-
-<h2>Ocenione głosowania:</h2>
+<h2>Ocenione głosowania ({{ user.vote_set.count }}):</h2>
 
 <ul class="blinken text">
 	{% for v in user.vote_set.all %}
@@ -50,4 +24,29 @@
 	{% endfor %}
 </ul>
 
-{% endblock %}
+{% endblock leftcolumn %}
+
+
+
+{% block rightcolumn %}
+<h3>Ma zaufanie do:</h3>
+{% users_inline_links follows %}
+
+<h3>Mają do niego zaufanie:</h3>
+{% users_inline_links followers %}
+
+{% if request.user != user %}
+{% if request.user|follows:user %}
+    <form method='post' action="{% url "people_unfollow" user.username %}">
+        {% csrf_token %}
+        <input type="submit" value="Przestań ufać" />
+    </form>
+{% else %}
+    <form method='post' action="{% url "people_follow" user.username %}">
+        {% csrf_token %}
+        <input type="submit" value="Zaufaj" />
+    </form>
+{% endif %}
+{% endif %}
+
+{% endblock rightcolumn %}

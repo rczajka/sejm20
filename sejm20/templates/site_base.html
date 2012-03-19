@@ -15,7 +15,7 @@
 	<div id="user-area">
 		{% if request.user.is_authenticated %}
 			<span class="top-avatar">
-				{% avatar request.user 48 %}
+				<a href="{% url avatar_change %}">{% avatar request.user 48 %}</a>
 			</span>
 			<span class="text">
 			<a href="{% url people_home %}">{{ request.user }}</a> |
@@ -40,7 +40,13 @@
 
 
 <div id="content-wrapper"><div id="content">
-{% block body %}{% endblock %}
+{% block body %}
+<section id="left-column">
+    {% block leftcolumn %}{% endblock %}
+</section><section id="right-column">
+    {% block rightcolumn %}{% endblock %}
+</section>
+{% endblock %}
 <div class="cl"></div>
 </div></div>
 

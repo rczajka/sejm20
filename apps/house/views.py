@@ -17,9 +17,15 @@ def posel(request, slug):
     return render(request, "house/posel_detail.html", locals())
 
 
+def posiedzenia(request):
+    posiedzenia = Posiedzenie.objects.all()
+    return render(request, "house/posiedzenie_list.html", locals())
+
+
 def posiedzenie(request, pk):
     posiedzenie = get_object_or_404(Posiedzenie, pk=pk)
     punkty = posiedzenie.punkt_set.all()
+    glosowania = posiedzenie.glosowanie_set.filter(punkt=None)
     return render(request, "house/posiedzenie_detail.html", locals())
 
 

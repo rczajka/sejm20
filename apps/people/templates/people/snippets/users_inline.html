@@ -1,0 +1,8 @@
+{% load avatar_tags %}
+<div class="user-inlines">
+    {% spaceless %}
+    {% for u in users %}
+        <img src="{% avatar_url u size %}" alt="{{ u.username }}" title="{{ u.username }}" />
+    {% endfor %}
+    {% endspaceless %}
+</div>

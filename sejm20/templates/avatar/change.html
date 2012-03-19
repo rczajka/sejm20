@@ -1,0 +1,27 @@
+{% extends "site_base.html" %}
+{% load avatar_tags %}
+
+{% block head_title %}Ustaw obraz{% endblock %}
+
+{% block body %}
+    <h1>Aktualny obraz: </h1>
+    {% avatar user %}
+    {% if not avatars %}
+        <p>Obecnie nie masz załadowanych żadnych obrazów.</p>
+    {% else %}
+        <form method="POST" action="">
+        {% csrf_token %}
+            <ul>
+                {{ primary_avatar_form.as_ul }}
+            </ul>
+            <input type="submit" value="Ustaw domyślny" />
+        </form>
+        <p>Jeśli chcesz usunąć niepotrzebne obrazy, przejdź do <a href="{% url avatar_delete %}">strony usuwania.</a></p>
+    {% endif %}
+    <h2>Dodaj nowy</h2>
+    <form enctype="multipart/form-data" method="POST" action="">
+    {% csrf_token %}
+        <input type="file" name="avatar" value="Obraz" />
+        <input type="submit" value="Załaduj obraz" />
+    </form>
+{% endblock %}

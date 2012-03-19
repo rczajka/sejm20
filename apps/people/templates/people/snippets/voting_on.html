@@ -1,0 +1,12 @@
+{% load people_tags %}
+
+{% if users.0 or users.1 %}
+    <h3>za:</h3>
+    {% users_inline_links users.0 %}
+    <h3>przeciw:</h3>
+    {% users_inline_links users.1 %}
+{% else %}
+    <p class="user-inlines-empty">
+        Nikt jeszcze nie ocenił tego głosowania. Masz szansę na pierwszeństwo!
+    </p>
+{% endif %}

@@ -5,16 +5,11 @@
 {% block head_title %}{{ klub.nazwa }} ({{ klub.skrot }}){% endblock %}
 
 
-{% block body %}
+{% block leftcolumn %}
 <p class="breadcrumbs">
     <a href="{% url people_ranking %}">posłowie i posłanki</a> &raquo;
 </p>
 <h1>{{ klub.nazwa }} ({{ klub.skrot }})</h1>
-
-<p>Zgodność: {% rating_long rating %}</p>
-
-<p><a href="{{ klub.sejmometr_url }}" target="_blank">{{ klub.nazwa }} w Sejmometrze.</a></p>
-
 
 <h2>Ranking posłów i posłanek klubu</h2>
 
@@ -23,4 +18,11 @@
 		<li>{% posel_link d r %} </li>
 	{% endfor %}
 </ol>
-{% endblock %}
+{% endblock leftcolumn %}
+
+
+{% block rightcolumn %}
+<p><a href="{{ klub.sejmometr_url }}" target="_blank">{{ klub.nazwa }} w Sejmometrze.</a></p>
+<h3>Zgodność:</h3>
+{% rating_long rating %}
+{% endblock rightcolumn %}

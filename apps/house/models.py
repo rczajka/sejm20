@@ -1,20 +1,12 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from jsonfield import JSONField
-
-
-class ModelFromApi(models.Model):
-    class Meta:
-        abstract = True
-
-    @classmethod
-    def self_update(cls):
-        print cls.fields
+from house.utils import ModelFromApi, str2int
 
 
 class Klub(ModelFromApi):
     nazwa = models.CharField(max_length=128)
-    skrot = models.CharField(max_length=16)
+    skrot = models.CharField(max_length=16, db_index=True)
 
     def __unicode__(self):
         return self.nazwa
@@ -27,19 +19,12 @@ class Klub(ModelFromApi):
         return "http://sejmometr.pl/%s" % self.skrot
 
     @classmethod
-    def update(cls):
-        import sejmometr
-        for api_obj in sejmometr.Klub.lista():
-            data = {"nazwa": api_obj.info.nazwa,
-                    "skrot": api_obj.info.skrot,
-                    }
-            obj, creat = cls.objects.get_or_create(pk=api_obj.id, defaults=data)
-            if not creat:
-                cls.objects.filter(pk=obj.id).update(**data)
+    def update_fields(cls):
+        return ['nazwa', 'skrot'], {}
 
 
 class Posel(ModelFromApi):
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, db_index=True)
     imie = models.CharField(max_length=128)
     nazwisko = models.CharField(max_length=128)
     klub = models.ForeignKey(Klub, null=True, blank=True)
@@ -58,21 +43,31 @@ class Posel(ModelFromApi):
         return "http://sejmometr.pl/%s" % self.slug
 
     @classmethod
-    def update(cls):
-        import sejmometr
-        for api_obj in sejmometr.Posel.lista():
-            try:
-                klub = Klub.objects.get(pk=api_obj.info.klub_id)
-            except Klub.DoesNotExist:
-                klub = None
-            data = {"slug": api_obj.info.slug,
-                    "imie": api_obj.info.imie,
-                    "nazwisko": api_obj.info.nazwisko,
-                    "klub": klub,
-                    }
-            obj, creat = cls.objects.get_or_create(pk=api_obj.id, defaults=data)
-            if not creat:
-                cls.objects.filter(pk=obj.id).update(**data)
+    def update_fields(cls):
+        return (['slug', 'imie', 'nazwisko'],
+                {'klub': cls.related_getter(Klub)})
+
+
+class Druk(ModelFromApi):
+    nr = models.CharField(max_length=32)
+    nr_int = models.IntegerField(db_index=True)
+    tytul = models.TextField()
+    opis = models.TextField()
+    dokument_id = models.IntegerField()
+
+    class Meta:
+        ordering = ['nr_int']
+
+    def __unicode__(self):
+        return u"Druk %s: %s" % (self.nr, self.tytul)
+
+    def sejmometr_url(self):
+        return "http://sejmometr.pl/druk/%s" % self.nr
+
+    @classmethod
+    def update_fields(cls):
+        return (['nr', 'tytul', 'opis', 'dokument_id'],
+                {'nr_int': lambda o: str2int(o.info.nr)})
 
 
 class Posiedzenie(ModelFromApi):
@@ -95,27 +90,19 @@ class Posiedzenie(ModelFromApi):
         return "http://sejmometr.pl/posiedzenia/%d" % self.pk
 
     @classmethod
-    def update(cls):
-        import sejmometr
-        for api_obj in sejmometr.Posiedzenie.lista():
-            data = {"tytul": api_obj.info.tytul,
-                    "data_start": api_obj.info.data_start,
-                    "data_stop": api_obj.info.data_stop,
-                    "ilosc_glosowan": api_obj.info.ilosc_glosowan,
-                    }
-            obj, creat = cls.objects.get_or_create(pk=api_obj.id, defaults=data)
-            if not creat:
-                cls.objects.filter(pk=obj.id).update(**data)
+    def update_fields(cls):
+        return ['tytul', 'data_start', 'data_stop', 'ilosc_glosowan'], {}
 
 
 class Punkt(ModelFromApi):
     posiedzenie = models.ForeignKey(Posiedzenie)
     nr = models.CharField(max_length=64)
-    nr_int = models.IntegerField()
+    nr_int = models.IntegerField(db_index=True)
     tytul = models.TextField()
+    druki = models.ManyToManyField(Druk)
 
     class Meta:
-        ordering = ['posiedzenie', 'nr']
+        ordering = ['posiedzenie', 'nr_int']
 
     def __unicode__(self):
         return u"Punkt %s: %s (%d głos.)" % (self.nr, self.tytul, self.glosowanie_set.count())
@@ -128,22 +115,14 @@ class Punkt(ModelFromApi):
         return "http://sejmometr.pl/punkt/%d" % self.pk
 
     @classmethod
-    def update(cls):
-        import re
-        import sejmometr
-
-        for api_obj in sejmometr.Punkt.lista():
-            posiedzenie = Posiedzenie.objects.get(pk=api_obj.info.posiedzenie_id)
-            nr = re.match(r'\d*', api_obj.info.nr).group()
-            nr = int(nr) if nr != '' else 0
-            data = {"posiedzenie": posiedzenie,
-                    "nr": api_obj.info.nr,
-                    "nr_int": nr,
-                    "tytul": api_obj.info.tytul,
-                    }
-            obj, creat = cls.objects.get_or_create(pk=api_obj.id, defaults=data)
-            if not creat:
-                cls.objects.filter(pk=obj.id).update(**data)
+    def update_fields(cls):
+        def druki(api_obj):
+            return [Druk.objects.get(pk=druk.id)
+                    for druk in api_obj.druki]
+        return (['nr', 'tytul'],
+                {'nr_int': lambda o: str2int(o.info.nr),
+                 'posiedzenie': cls.related_getter(Posiedzenie),
+                 'druki': druki})
 
 
 class Glosowanie(ModelFromApi):
@@ -151,7 +130,7 @@ class Glosowanie(ModelFromApi):
     punkt = models.ForeignKey(Punkt, null=True, blank=True)
     nr = models.IntegerField()
     tytul = models.TextField()
-    time = models.DateTimeField()
+    time = models.DateTimeField(db_index=True)
     wyniki = JSONField(default=[])
 
     class Meta:
@@ -165,19 +144,11 @@ class Glosowanie(ModelFromApi):
         return ('house_glosowanie', [self.pk])
 
     @classmethod
-    def update(cls):
-        import sejmometr
-        for api_obj in sejmometr.Glosowanie.lista():
-            punkt = Punkt.objects.get(pk=api_obj.info.punkt_id) if api_obj.info.punkt_id else None
-            posiedzenie = Posiedzenie.objects.get(pk=api_obj.info.posiedzenie_id)
-            wyniki = [(int(w.posel.id), int(w.klub.id), int(w.glos)) for w in api_obj.wyniki]
-            data = {"posiedzenie": posiedzenie,
-                    "punkt": punkt,
-                    "nr": api_obj.info.nr,
-                    "tytul": api_obj.info.tytul,
-                    "time": api_obj.info.time,
-                    "wyniki": wyniki,
-            }
-            obj, creat = cls.objects.get_or_create(pk=api_obj.id, defaults=data)
-            if not creat:
-                cls.objects.filter(pk=obj.id).update(**data)
+    def update_fields(cls):
+        def wyniki(api_obj):
+            return [(int(w.posel.id), int(w.klub.id), int(w.glos))
+                    for w in api_obj.wyniki]
+        return (["nr", "tytul", "time"],
+                {'posiedzenie': cls.related_getter(Posiedzenie),
+                 'punkt': cls.related_getter(Punkt),
+                 'wyniki': wyniki})

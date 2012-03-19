@@ -1,12 +1,14 @@
+{% load people_tags %}
 <a class="link glosowanie-link" href="{{ obj.get_absolute_url }}">
+	<span class="title">{{ obj.tytul }}</span>
+    <div class="subtitle">{{ obj.punkt.tytul }}</div>
+    {% users_inline users 16 %}
 	<div>
-		<span class="title">{{ obj.tytul }}</span>
-		<span class="comment">
-			(posiedzenie&nbsp;{{ obj.posiedzenie.tytul }}, głosowanie&nbsp;{{ obj.nr }})
+	    <span class="comment">
+		(posiedzenie&nbsp;{{ obj.posiedzenie.tytul }}, głosowanie&nbsp;{{ obj.nr }}, {{ obj.time }})
 		</span>
-		{% if more %}
-			<strong>({{ more }})</strong>
-		{% endif %}
+        {% if more %}
+            <strong>({{ more }})</strong>
+        {% endif %}
 	</div>
-    <div class="subtitle">({{ obj.time }})</div>
 </a>

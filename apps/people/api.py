@@ -7,7 +7,8 @@ API for the people app. Views should only access models through here.
 from collections import defaultdict
 from house.models import Posel, Klub
 from people.models import Vote, Followship
-from django.db.models import Count
+from django.db.models import Count, Max
+from django.contrib.auth.models import User
 
 
 def follow(user1, user2):
@@ -134,3 +135,27 @@ def rank_in_club(user, club):
     """Returns all the deputys in the club, ranked by rating."""
     posel_ids = [p.id for p in club.posel_set.all()]
     return rank(user, posel_ids)
+
+
+def users_for_posiedzenie(posiedzenie):
+    users = (v.user for v in Vote.objects.filter(glosowanie__posiedzenie=posiedzenie))
+    already = set()
+    for u in users:
+        if u.pk not in already:
+            yield u
+            already.add(u.pk)
+def users_for_punkt(punkt):
+    users = (v.user for v in Vote.objects.filter(glosowanie__punkt=punkt))
+    already = set()
+    for u in users:
+        if u.pk not in already:
+            yield u
+            already.add(u.pk)
+def users_for_glosowanie(glosowanie):
+    return (v.user for v in glosowanie.vote_set.all())
+
+def followers(user):
+    return [f.follower for f in user.followers.all()]
+
+def followed(user):
+    return [f.followed for f in user.follows.all()]

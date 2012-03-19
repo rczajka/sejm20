@@ -1,19 +1,24 @@
 {% extends "site_base.html" %}
+{% load house_tags people_tags %}
 
 
 {% block head_title %}{{ glosowanie.tytul }}{% endblock %}
 
 
 
-{% block body %}
+{% block leftcolumn %}
+
 <p class="breadcrumbs">
-    posiedzenia &raquo;
-    <a href="{{ glosowanie.punkt.posiedzenie.get_absolute_url }}">posiedzenie {{ glosowanie.punkt.posiedzenie.tytul }}</a> &raquo;
-    <a href="{{ glosowanie.punkt.get_absolute_url }}">punkt {{ glosowanie.punkt.nr}}: {{ glosowanie.punkt.tytul }}</a> &raquo;
+    <a href="{% url house_posiedzenia %}">posiedzenia</a> &raquo;
+    <a href="{{ glosowanie.punkt.posiedzenie.get_absolute_url }}">posiedzenie {{ glosowanie.posiedzenie.tytul }}</a> &raquo;
+    {% if glosowanie.punkt %}
+        <a href="{{ glosowanie.punkt.get_absolute_url }}">punkt {{ glosowanie.punkt.nr}}: {{ glosowanie.punkt.tytul }}</a> &raquo;
+    {% endif %}
 </p>
 <h1>{{ glosowanie.tytul }}</h1>
 
-<p><a href='{{ glosowanie.sejmometr_url }}' target='_blank'>Głosowanie w Sejmometrze.</a></p>
+<p></p>
+
 
 <div class="vote-buttons">
 <form method="post" 
@@ -46,6 +51,24 @@
 	</button>
 </form>
 </div>
+{% endblock leftcolumn %}
 
 
-{% endblock %}
+{% block rightcolumn %}
+<p><a class="sejmometr" href='{{ glosowanie.sejmometr_url }}' target='_blank'>
+    Głosowanie w Sejmometrze
+</a></p>
+
+{% if glosowanie.punkt.druki.exists %}
+<h3>Druki:</h3>
+<ul class="blinken">
+    {% for druk in glosowanie.punkt.druki.all %}
+    <li>{% druk_link druk %}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+{% voting_on glosowanie %}
+
+{% endblock rightcolumn %}

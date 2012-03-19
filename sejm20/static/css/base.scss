@@ -42,7 +42,7 @@ header {
 	color: $light;
 	padding-top: $headertop;
 	box-shadow: 0 .4em .3em $light;
-	height: $header - $headertop;
+	/*height: $header - $headertop;*/
 	position: relative;
 	z-index:1;
 }
@@ -50,10 +50,10 @@ header {
 	background-color: white;
 	color: $verydark;
 	padding-bottom: 5em;
-	min-height: 40em;
+	min-height: 20em;
 }
 #header, #content, #footer {
-	width: 60em;
+	max-width: 60em;
 	margin: auto;
 }
 header a {
@@ -92,11 +92,16 @@ header a {
 
 h1 {
 	font-weight: normal;
-	font-size: 2.5em;
+	font-size: 2em;
 }
 h2 {
 	font-weight: normal;
-	font-size: 2em;
+	font-size: 1.5em;
+}
+h3 {
+  font-weight: normal;
+  font-size: 1.2em;
+  margin: .7em 0 0em 0;
 }
 
 
@@ -189,7 +194,7 @@ ul.blinken {
 
 	li {
 		margin: .5em 0;
-		a {
+		a.link {
 			padding: 0 .5em;
 			display: block;
 		}
@@ -248,12 +253,10 @@ fieldset {
 
 
 #ranking-poslowie {
-	float: left;
-	width: 60%;
-	margin-right: 5%;
+  float: left;
 }
 #ranking-kluby {
-	float: left;
+	float: right;
 }
 
 
@@ -276,6 +279,36 @@ fieldset {
 }
 
 
-.left-column {
-  width: 60%;
+#left-column {
+  min-width: 60%;
+  max-width: 40em;
+  float:left;
+  margin: 0 .5em;
+}
+#right-column {
+  float:right;
+  margin-top: -1em;
+  padding: 1em 0 1em 1em;
+  border-left: 1px solid #ddd;
+  width: 15em;
+  
+}
+
+.user-inlines img {
+  vertical-align: middle;
+  margin-left: 1px;
+}
+.user-inlines-empty {
+  color: $light;
+}
+
+
+.remember {
+  padding: 1em;
+  box-shadow: 0 0 1em $light;
+}
+
+.avatar-big {
+  vertical-align: middle;
+  margin-right: 1em;
 }

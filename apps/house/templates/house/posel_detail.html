@@ -5,8 +5,7 @@
 {% block head_title %}{{ posel }}{% endblock %}
 
 
-{% block body %}
-
+{% block leftcolumn %}
 <p class="breadcrumbs">
     <a href="{% url people_ranking %}">posłowie i posłanki</a> &raquo;
     {% if posel.klub %}
@@ -14,13 +13,14 @@
     {% endif %}
 </p>
 <h1>{{ posel }}</h1>
-
-<p>Zgodność: {% rating_long rating %}</p>
-
 {% if posel.klub %}
 	<p>Klub: <a href='{{ posel.klub.get_absolute_url }}'>{{ posel.klub }}.</a></p>
 {% endif %}
+{% endblock leftcolumn %}
 
-<p><a href="{{ posel.sejmometr_url }}">{{ posel }} w Sejmometrze</a></p>
 
-{% endblock %}
+{% block rightcolumn %}
+<p><a href="{{ posel.sejmometr_url }}" target="_blank">{{ posel }} w Sejmometrze</a></p>
+<h3>Zgodność:</h3>
+{% rating_long rating %}
+{% endblock rightcolumn %}

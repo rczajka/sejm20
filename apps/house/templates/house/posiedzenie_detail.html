@@ -5,17 +5,32 @@
 {% block head_title %}Posiedzenie {{ posiedzenie.tytul }}{% endblock %}
 
 
+{% block leftcolumn %}
+<p class="breadcrumbs">
+    <a href="{% url house_posiedzenia %}">posiedzenia</a> &raquo;
+</p>
+<h1>Posiedzenie {{ posiedzenie.tytul }}</h1>
 
-{% block body %}
-    <h1>Posiedzenie {{ posiedzenie.tytul }}</h1>
-
-<p><a href='{{ posiedzenie.sejmometr_url }}' target='_blank'>Posiedzenie w Sejmometrze.</a></p>
-
+<h2>Punkty porządku obrad</h2>
 <ul class="blinken text">
 {% for p in punkty %}
-    <li><a href="{{ p.get_absolute_url }}">{% punkt_link p %}</a></li>
+    <li>{% punkt_link p %}</li>
 {% endfor %}
 </ul>
 
+{% if glosowania %}
+<h2>Głosowania poza punktami</h2>
+<ul class="blinken text">
+{% for p in glosowania %}
+    <li>{% glosowanie_link p %}</li>
+{% endfor %}
+</ul>
+{% endif %}
 
-{% endblock %}
+{% endblock leftcolumn %}
+
+
+{% block rightcolumn %}
+<p><a href='{{ posiedzenie.sejmometr_url }}' target='_blank'>Posiedzenie w Sejmometrze.</a></p>
+{{ posiedzenie.data_start}} – {{posiedzenie.data_stop}}
+{% endblock rightcolumn %}
