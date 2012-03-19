@@ -29,7 +29,7 @@ def rank(request):
     logged_in = request.user.is_authenticated()
     if logged_in:
         voted = request.user.vote_set.exists()
-        follows = request.user.follows.exists()
+        follows = api.followed(request.user)
     deputys = api.rank(request.user)
     clubs = api.rank_clubs(request.user)
     return render(request, "people/rank.html", locals())

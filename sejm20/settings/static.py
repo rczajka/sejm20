@@ -11,12 +11,6 @@ MEDIA_ROOT = os.path.join(PROJECT_DIR, '../media')
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 MEDIA_URL = '/media/'
 
-# URL prefix for admin static files -- CSS, JavaScript and images.
-# Make sure to use a trailing slash.
-# Examples: "http://foo.com/static/admin/", "/static/admin/".
-ADMIN_MEDIA_PREFIX = '/static/admin/'
-
-
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
@@ -42,7 +36,7 @@ PIPELINE_CSS = {
         "source_filenames": [
             "css/base.scss",
         ],
-        "output_filename": "css/all.?.css",
+        "output_filename": "css/all.css",
     }
 }
 

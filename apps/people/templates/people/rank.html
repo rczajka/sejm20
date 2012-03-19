@@ -12,7 +12,7 @@
 <h1>Kto głosuje zgodnie z moimi poglądami?</h1>
 
 {% if not logged_in %}
-    <p class="remember">Zalogowani użytkownicy mogą zobaczyć listę
+    <p class="remember"><a href="{% url "account_login" %}">Zalogowani</a> użytkownicy mogą zobaczyć listę
         uszeregowaną według zgodności poglądów z własnymi, nie tylko taką alfabetyczną jak niżej.</p>
 {% elif not voted and not follows %}
     <p class="remember">Aby zobaczyć listę uszeregowaną według zgodności z Twoimi poglądami,
@@ -50,8 +50,10 @@
     <h3>Ocenionych głosowań:</h3>
     {{ request.user.vote_set.count }}
     <h3>Zaufani użytkownicy:</h3>
-    {% users_inline_links request.user.follows.all %}
+    {% users_inline_links follows %}
 {% else %}
-    {% include "account/sign_ing.html" %}
+    <p><a href="{% url "account_login" %}">Zaloguj się</a>
+    lub <a href="{% url "account_signup" %}">załóż konto</a>,
+    aby uzyskać spersonalizowany ranking.</p>
 {% endif %}
 {% endblock rightcolumn %}
