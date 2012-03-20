@@ -126,6 +126,8 @@ def rate_club(user, club):
     
     It is calculated as the average rating of the current member of the club.
     """
+    if not user.is_authenticated():
+        return None
     if not club.posel_set.exists():
         return None
     return sum(x[1] for x in rank_in_club(user, club)) / club.posel_set.count()
