@@ -12,8 +12,8 @@ class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
         make_option('-q', '--quiet', action='store_false', dest='verbose', default=True,
             help='Suppress output'),
-        make_option('-n', '--new', action='store_true', dest='only_new', default=False,
-            help="Only fetch new objects, don't update existing ones."),
+        make_option('-f', '--force-update', action='store_true', dest='force_update', default=False,
+            help = "Force updating existing objects with new data."),
         )
     for letter, name in (('K', 'Klub'), ('P', 'Posel'), ('D', 'Druk'),
                         ('S', 'Posiedzenie'), ('T', 'Punkt'), ('G', 'Glosowanie')):

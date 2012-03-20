@@ -45,7 +45,7 @@ class Posel(ModelFromApi):
     @classmethod
     def update_fields(cls):
         return (['slug', 'imie', 'nazwisko'],
-                {'klub': cls.related_getter(Klub)})
+                {'klub': lambda o: Klub.from_id(o.info.klub_id)})
 
 
 class Druk(ModelFromApi):
@@ -121,7 +121,7 @@ class Punkt(ModelFromApi):
                     for druk in api_obj.druki]
         return (['nr', 'tytul'],
                 {'nr_int': lambda o: str2int(o.info.nr),
-                 'posiedzenie': cls.related_getter(Posiedzenie),
+                 'posiedzenie': lambda o: Posiedzenie.from_id(o.info.posiedzenie_id),
                  'druki': druki})
 
 
@@ -149,6 +149,6 @@ class Glosowanie(ModelFromApi):
             return [(int(w.posel.id), int(w.klub.id), int(w.glos))
                     for w in api_obj.wyniki]
         return (["nr", "tytul", "time"],
-                {'posiedzenie': cls.related_getter(Posiedzenie),
-                 'punkt': cls.related_getter(Punkt),
+                {'posiedzenie': lambda o: (Posiedzenie.from_id(o.info.posiedzenie_id)),
+                 'punkt': lambda o: (Punkt.from_id(o.info.punkt_id)),
                  'wyniki': wyniki})

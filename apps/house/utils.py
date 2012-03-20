@@ -10,33 +10,25 @@ class ModelFromApi(models.Model):
     class Meta:
         abstract = True
 
-    @staticmethod
-    def related_getter(model):
-        def wrapped(api_obj):
-            pk = getattr(api_obj.info, "%s_id" % model.__name__.lower())
-            try:
-                return model._default_manager.get(pk=pk)
-            except model.DoesNotExist:
-                return None
-        return wrapped
-
     @classmethod
-    def update(cls, verbose=True, only_new=False):
-        import sejmometr
-        for api_obj in getattr(sejmometr, cls.__name__).lista():
-            try:
-                obj = cls._default_manager.get(pk=api_obj.id)
-            except cls.DoesNotExist:
-                obj = cls()
-                created = True
-            else:
-                created = False
+    def from_id(cls, id, verbose=True, force_update=False):
+        if not id:
+            return None
+        try:
+            obj = cls._default_manager.get(pk=id)
+        except cls.DoesNotExist:
+            obj = cls()
+            created = True
+        else:
+            created = False
 
-            if only_new and not created:
-                continue
-
+        if not created and not force_update:
+            return obj
+        else:
             if verbose:
-                print "%s %d" % (cls.__name__, api_obj.id)
+                print "%s %d" % (cls.__name__, id)
+            import sejmometr
+            api_obj = getattr(sejmometr, cls.__name__)(id)
 
             fields, cfields = cls.update_fields()
             data = {}
@@ -66,6 +58,13 @@ class ModelFromApi(models.Model):
                 for k in after_save:
                     setattr(obj, k, data[k])
                 obj.save()
+
+
+    @classmethod
+    def update(cls, verbose=True, force_update=False):
+        import sejmometr
+        for api_obj in getattr(sejmometr, cls.__name__).lista():
+            cls.from_id(api_obj.id, verbose=True, force_update=force_update)
 
 
 def str2int(string):
