@@ -53,7 +53,8 @@ def get_vote(user, glosowanie):
 
 def rank(user, posel_ids=None):
     if posel_ids:
-        poslowie = Posel.objects.in_bulk(posel_ids).values()
+        poslowie = Posel.objects.in_bulk(posel_ids)
+        poslowie = [poslowie[i] for i in posel_ids]
     else:
         poslowie = Posel.objects.all()
 

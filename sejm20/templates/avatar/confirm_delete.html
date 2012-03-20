@@ -1,11 +1,12 @@
 {% extends "site_base.html" %}
+{% load url from future %}
 
 {% block head_title %}Usuń obrazy{% endblock %}
 
 {% block body %}
     <p>Wybierz obrazy, które chcesz usunąć.</p>
     {% if not avatars %}
-        <p>Nie masz żadnych obrazów do usunięcia. <a href="{% url avatar_change %}">Załaduj jakiś</a>.</p>
+        <p>Nie masz żadnych obrazów do usunięcia. <a href="{% url 'avatar_change' %}">Załaduj jakiś</a>.</p>
     {% else %}
         <form method="POST" action="">
             {% csrf_token %}

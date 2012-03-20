@@ -1,6 +1,7 @@
+{% load url from future %}
 {% if no_rating %}
 	{% if long %}
-		Musisz się <a href="{% url account_login %}"zalogować</a>, aby ocenić zgodność.
+		Musisz się <a href="{% url "account_login" %}">zalogować</a>, aby uzyskać ocenę zgodności.
 	{% else %}
 		—
 	{% endif %} 
