@@ -201,7 +201,7 @@ def collectstatic():
     print '>>> collectstatic'
     require('path', 'project_name', provided_by=servers)
     require('python', provided_by=[find_python])
-    with cd('%(path)s/releases/current/%(project_name)s' % env):
+    with cd('%(path)s/releases/current/' % env):
         run('%(python)s manage.py collectstatic --noinput' % env, pty=True)
 
 def migrate():
@@ -209,7 +209,7 @@ def migrate():
     print '>>> migrate'
     require('path', 'project_name', provided_by=servers)
     require('python', provided_by=[find_python])
-    with cd('%(path)s/releases/current/%(project_name)s' % env):
+    with cd('%(path)s/releases/current/' % env):
         run('%(python)s manage.py syncdb --noinput' % env, pty=True)
         if env.use_south:
             run('%(python)s manage.py migrate' % env, pty=True)
