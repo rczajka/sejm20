@@ -117,7 +117,8 @@ class Punkt(ModelFromApi):
     @classmethod
     def update_fields(cls):
         def druki(api_obj):
-            return [Druk.from_id(druk.id) for druk in api_obj.druki]
+            druki_ids = set([druk.id for druk in api_obj.druki])
+            return [Druk.from_id(id) for id in druki_ids]
         return (['nr', 'tytul'],
                 {'nr_int': lambda o: str2int(o.info.nr),
                  'posiedzenie': lambda o: Posiedzenie.from_id(o.info.posiedzenie_id),
