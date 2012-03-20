@@ -58,6 +58,7 @@ class ModelFromApi(models.Model):
                 for k in after_save:
                     setattr(obj, k, data[k])
                 obj.save()
+            return obj
 
 
     @classmethod
