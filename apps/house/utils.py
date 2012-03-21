@@ -17,7 +17,7 @@ class ModelFromApi(models.Model):
         try:
             obj = cls._default_manager.get(pk=id)
         except cls.DoesNotExist:
-            obj = cls()
+            obj = cls(pk=id)
             created = True
         else:
             created = False
@@ -32,7 +32,6 @@ class ModelFromApi(models.Model):
 
             fields, cfields = cls.update_fields()
             data = {}
-            rel_data = {}
             for arg in fields:
                 data[arg] = getattr(api_obj.info, arg)
             for k, v in cfields.items():
