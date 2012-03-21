@@ -19,6 +19,14 @@ def user_link(user):
     return locals()
 
 
+@register.filter
+def name(user):
+    if user:
+        return user.get_full_name() or user
+    else:
+        return ''
+
+
 @register.inclusion_tag("people/snippets/rating.html")
 def rating(rating):
     return {

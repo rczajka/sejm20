@@ -1,4 +1,5 @@
 {% extends "site_base.html" %}
+{% load url from future %}
 {% load house_tags people_tags %}
 
 
@@ -7,7 +8,7 @@
 
 {% block leftcolumn %}
 <p class="breadcrumbs">
-    <a href="{% url people_ranking %}">posłowie i posłanki</a> &raquo;
+    <a href="{% url 'people_ranking' %}">posłowie i posłanki</a> &raquo;
 </p>
 <h1>{{ klub.nazwa }} ({{ klub.skrot }})</h1>
 
@@ -22,7 +23,7 @@
 
 
 {% block rightcolumn %}
-<p><a href="{{ klub.sejmometr_url }}" target="_blank">{{ klub.nazwa }} w Sejmometrze.</a></p>
+<p><a href="{{ klub.sejmometr_url }}" target="_blank">{{ klub.nazwa }} w&nbsp;Sejmometrze.</a></p>
 <h3>Zgodność:</h3>
 {% rating_long rating %}
 {% endblock rightcolumn %}

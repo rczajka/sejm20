@@ -34,9 +34,21 @@ STATICFILES_DIRS = (
 PIPELINE_CSS = {
     "all": {
         "source_filenames": [
+            "uni_form/uni-form.css",
+            "uni_form/default.uni-form.css",
             "css/base.scss",
         ],
         "output_filename": "css/all.css",
+    }
+}
+
+PIPELINE_JS = {
+    "all": {
+        "source_filenames": [
+            "uni_form/jquery.js",
+            "uni_form/uni-form.jquery.js",
+        ],
+        "output_filename": "js/all.js",
     }
 }
 

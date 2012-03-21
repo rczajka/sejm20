@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import *
 
 urlpatterns = patterns('house.views',
-    url(r'^klub/(?P<pk>\d+)/$', 'klub', name='house_klub'),
+    url(r'^klub/(?P<slug>.*)/$', 'klub', name='house_klub'),
     url(r'^posel/(?P<slug>[^/]*)/$', 'posel', name='house_posel'),
     url(r'^posiedzenia/$', 'posiedzenia', name='house_posiedzenia'),
     url(r'^posiedzenie/(?P<pk>\d+)/$', 'posiedzenie', name='house_posiedzenie'),

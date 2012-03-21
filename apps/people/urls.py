@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import *
 
 urlpatterns = patterns('people.views',
-    url(r'^uzytkownik/$', 'my_page', name='people_home'),
+    url(r'^uzytkownik/$', 'settings', name='people_settings'),
     url(r'^uzytkownik/(?P<username>[^/]*)/$', 'user', name='people_user'),
     url(r'^ufaj/(?P<username>[^/]*)/$', 'follow', name='people_follow'),
     url(r'^odufaj/(?P<username>[^/]*)/$', 'unfollow', name='people_unfollow'),

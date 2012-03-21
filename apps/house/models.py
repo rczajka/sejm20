@@ -13,7 +13,7 @@ class Klub(ModelFromApi):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('house_klub', [self.pk])
+        return ('house_klub', [self.skrot])
 
     def sejmometr_url(self):
         return "http://sejmometr.pl/%s" % self.skrot

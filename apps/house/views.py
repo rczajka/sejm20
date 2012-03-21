@@ -4,8 +4,8 @@ from house.models import Posel, Glosowanie, Posiedzenie, Punkt, Klub
 import people.api
 
 
-def klub(request, pk):
-    klub = get_object_or_404(Klub, pk=pk)
+def klub(request, slug):
+    klub = get_object_or_404(Klub, skrot=slug)
     deputys = people.api.rank_in_club(request.user, klub)
     rating = people.api.rate_club(request.user, klub)
     return render(request, "house/klub_detail.html", locals())

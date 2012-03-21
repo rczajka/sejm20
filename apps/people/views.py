@@ -7,6 +7,8 @@ from django.shortcuts import get_object_or_404, render
 from house.models import Glosowanie
 from people import api
 from django.core.urlresolvers import reverse
+from people.forms import UserProfileForm
+from people.models import UserProfile
 
 
 @login_required
@@ -52,9 +54,16 @@ def unfollow(request, username):
 
 
 @login_required
-def my_page(request):
-    user = request.user
-    return render(request, "people/user.html", locals())
+def settings(request):
+    profile = UserProfile.for_user(request.user)
+    if request.method == 'POST':
+        form = UserProfileForm(instance=profile, data=request.POST)
+        if form.is_valid():
+            form.save()
+
+    else:
+        form = UserProfileForm(instance=profile)
+    return render(request, "people/settings.html", locals())
 
 
 def user(request, username):

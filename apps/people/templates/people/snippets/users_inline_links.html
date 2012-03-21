@@ -1,11 +1,11 @@
 {% load url from future %}
-{% load avatar_tags %}
+{% load avatar_tags people_tags %}
 <div class="user-inlines">
     {% if users %}
         {% spaceless %}
         {% for u in users %}
             <a href="{% url "people_user" u %}">
-                <img src="{% avatar_url u size %}" alt="{{ u.username }}" title="{{ u.username }}" />
+                <img src="{% avatar_url u size %}" alt="{{ u|name }}" title="{{ u|name }}" />
             </a>
         {% endfor %}
         {% endspaceless %}

@@ -4,16 +4,28 @@
 {% load house_tags people_tags %}
 
 
-{% block head_title %}{{ user.username }}{% endblock %}
+{% block head_title %}{{ user|name }}{% endblock %}
 
 
 
 {% block leftcolumn %}
 <h1>
 {% if request.user == user %}<a title="zmień obraz" href="{% url "avatar_change" %}">{% endif %}
-<img class="avatar-big" alt="{{ user }}" src="{% avatar_url user 64 %}" />
+<img style="float:left; vertical-align:top;" class="avatar-big" alt="{{ user }}" src="{% avatar_url user 100 %}" />
 {% if request.user == user %}</a>{% endif %}
-{{ user.username }}</h1>
+<div style="margin-left: 135px">
+{{ user|name }}
+<div style='font-size: .5em;'>
+<div>{{ user.get_profile.description }}</div>
+<div><a rel="nofollow" target="_blank" href="{{ user.get_profile.url }}">{{ user.get_profile.url }}</a></div>
+{% if request.user == user %}
+    <p><a href="{% url 'people_settings' %}">(edytuj profil)</a></p>
+{% endif %}
+</div>
+</div>
+<div class='cl'></div>
+
+</h1>
 
 
 <h2>Ocenione głosowania ({{ user.vote_set.count }}):</h2>
@@ -32,21 +44,24 @@
 <h3>Ma zaufanie do:</h3>
 {% users_inline_links follows %}
 
-<h3>Mają do niego zaufanie:</h3>
+<h3>Mają zaufanie:</h3>
 {% users_inline_links followers %}
 
 {% if request.user != user %}
 {% if request.user|follows:user %}
     <form method='post' action="{% url "people_unfollow" user.username %}">
         {% csrf_token %}
-        <input type="submit" value="Przestań ufać" />
+        <p><input class="unfollow" type="submit" value="Odłącz" /></p>
     </form>
 {% else %}
+    <h3>Dobrze głosuje?</h3>
     <form method='post' action="{% url "people_follow" user.username %}">
         {% csrf_token %}
-        <input type="submit" value="Zaufaj" />
+        <p><input class="follow" type="submit" value="Dołącz" /></p>
     </form>
 {% endif %}
 {% endif %}
+
+
 
 {% endblock rightcolumn %}

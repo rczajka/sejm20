@@ -1,0 +1,52 @@
+{% extends "site_base.html" %}
+{% load url from future %}
+{% load avatar_tags %}
+{% load house_tags people_tags uni_form_tags %}
+
+
+{% block head_title %}Ustawienia{% endblock %}
+
+
+
+{% block leftcolumn %}
+
+<h1>
+<a title="zmień obraz" href = "{% url "avatar_change" %}">
+<img style="float:left; vertical-align:top;" class="avatar-big" alt="{{ user }}" src="{% avatar_url user 48 %}" />
+</a>
+Ustawienia użytkownika {{ user|name }}
+<div class='cl'></div>
+</h1>
+
+
+<form method="POST" action="" class="uniForm">
+    {% csrf_token %}
+    <fieldset class="inlineLabels">
+        {{ form|as_uni_form }}
+        <div class = "buttonHolder">
+            <input type="submit" value="Wyślij" />
+        </div>
+    </fieldset>
+</form>
+
+
+{% endblock leftcolumn %}
+
+
+
+{% block rightcolumn %}
+
+<p><a href="{% url 'people_user' user %}">Zobacz swój profil</a></p>
+
+<p>Ustawienia profilu</p>
+
+<p><a href="{% url 'avatar_change' %}">Zmień obraz</a></p>
+
+<p><a href="{% url 'account_email' %}">Ustaw e-mail</a></p>
+
+<p><a href="{% url 'account_set_password' %}">Zmień hasło</a></p>
+
+<p><a href="{% url 'socialaccount_connections' %}">Zewnętrzne konta</a></p>
+
+
+{% endblock rightcolumn %}

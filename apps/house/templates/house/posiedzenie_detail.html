@@ -1,4 +1,5 @@
 {% extends "site_base.html" %}
+{% load url from future %}
 {% load house_tags %}
 
 
@@ -7,11 +8,11 @@
 
 {% block leftcolumn %}
 <p class="breadcrumbs">
-    <a href="{% url house_posiedzenia %}">posiedzenia</a> &raquo;
+    <a href="{% url 'house_posiedzenia' %}">posiedzenia</a> &raquo;
 </p>
 <h1>Posiedzenie {{ posiedzenie.tytul }}</h1>
 
-<h2>Punkty porządku obrad</h2>
+<h2>Punkty porządku obrad:</h2>
 <ul class="blinken text">
 {% for p in punkty %}
     <li>{% punkt_link p %}</li>
@@ -19,7 +20,7 @@
 </ul>
 
 {% if glosowania %}
-<h2>Głosowania poza punktami</h2>
+<h2>Głosowania poza punktami:</h2>
 <ul class="blinken text">
 {% for p in glosowania %}
     <li>{% glosowanie_link p %}</li>
@@ -31,6 +32,6 @@
 
 
 {% block rightcolumn %}
-<p><a href='{{ posiedzenie.sejmometr_url }}' target='_blank'>Posiedzenie w Sejmometrze.</a></p>
+<p><a href='{{ posiedzenie.sejmometr_url }}' target='_blank'>Posiedzenie w&nbsp;Sejmometrze.</a></p>
 {{ posiedzenie.data_start}} – {{posiedzenie.data_stop}}
 {% endblock rightcolumn %}

@@ -1,4 +1,5 @@
 {% extends "site_base.html" %}
+{% load url from future %}
 {% load people_tags %}
 
 
@@ -7,7 +8,7 @@
 
 {% block leftcolumn %}
 <p class="breadcrumbs">
-    <a href="{% url people_ranking %}">posłowie i posłanki</a> &raquo;
+    <a href="{% url 'people_ranking' %}">posłowie i posłanki</a> &raquo;
     {% if posel.klub %}
         <a href="{{ posel.klub.get_absolute_url }}">{{ posel.klub.skrot }}</a> &raquo;
     {% endif %}
@@ -20,7 +21,7 @@
 
 
 {% block rightcolumn %}
-<p><a href="{{ posel.sejmometr_url }}" target="_blank">{{ posel }} w Sejmometrze</a></p>
+<p><a href="{{ posel.sejmometr_url }}" target="_blank">{{ posel }} w&nbsp;Sejmometrze</a></p>
 <h3>Zgodność:</h3>
 {% rating_long rating %}
 {% endblock rightcolumn %}

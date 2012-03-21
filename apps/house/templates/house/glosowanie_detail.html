@@ -1,4 +1,5 @@
 {% extends "site_base.html" %}
+{% load url from future %}
 {% load house_tags people_tags %}
 
 
@@ -9,7 +10,7 @@
 {% block leftcolumn %}
 
 <p class="breadcrumbs">
-    <a href="{% url house_posiedzenia %}">posiedzenia</a> &raquo;
+    <a href="{% url 'house_posiedzenia' %}">posiedzenia</a> &raquo;
     <a href="{{ glosowanie.punkt.posiedzenie.get_absolute_url }}">posiedzenie {{ glosowanie.posiedzenie.tytul }}</a> &raquo;
     {% if glosowanie.punkt %}
         <a href="{{ glosowanie.punkt.get_absolute_url }}">punkt {{ glosowanie.punkt.nr}}: {{ glosowanie.punkt.tytul }}</a> &raquo;
@@ -17,16 +18,16 @@
 </p>
 <h1>{{ glosowanie.tytul }}</h1>
 
-<p></p>
+<h2>Twój głos:</h2>
 
 
 <div class="vote-buttons">
 <form method="post" 
 	action="
 		{% if my_vote.vote == 1 %}
-			{% url people_unvote glosowanie.id %}
+			{% url 'people_unvote' glosowanie.id %}
 		{% else %}
-			{% url people_vote glosowanie.id %}
+			{% url 'people_vote' glosowanie.id %}
 		{% endif %}">
 	<input type="hidden" name="vote" value="1" />
 	{% csrf_token %}
@@ -39,9 +40,9 @@
 <form method="post" 
 	action="
 		{% if my_vote.vote == 2 %}
-			{% url people_unvote glosowanie.id %}
+			{% url 'people_unvote' glosowanie.id %}
 		{% else %}
-			{% url people_vote glosowanie.id %}
+			{% url 'people_vote' glosowanie.id %}
 		{% endif %}">
 	<input type="hidden" name="vote" value="2" />
 	{% csrf_token %}
@@ -56,7 +57,7 @@
 
 {% block rightcolumn %}
 <p><a class="sejmometr" href='{{ glosowanie.sejmometr_url }}' target='_blank'>
-    Głosowanie w Sejmometrze
+    Głosowanie w&nbsp;Sejmometrze
 </a></p>
 
 {% if glosowanie.punkt.druki.exists %}
