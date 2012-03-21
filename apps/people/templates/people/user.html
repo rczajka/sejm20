@@ -16,8 +16,12 @@
 <div style="margin-left: 135px">
 {{ user|name }}
 <div style='font-size: .5em;'>
-<div>{{ user.get_profile.description }}</div>
-<div><a rel="nofollow" target="_blank" href="{{ user.get_profile.url }}">{{ user.get_profile.url }}</a></div>
+{% if user.get_profile.description %}
+    <div>{{ user.get_profile.description }}</div>
+{% endif %}
+{% if user.get_profile.url %}
+    <div><a rel="nofollow" target="_blank" href="{{ user.get_profile.url }}">{{ user.get_profile.url }}</a></div>
+{% endif %}
 {% if request.user == user %}
     <p><a href="{% url 'people_settings' %}">(edytuj profil)</a></p>
 {% endif %}
