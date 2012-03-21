@@ -14,7 +14,7 @@
 <a title="zmień obraz" href = "{% url "avatar_change" %}">
 <img style="float:left; vertical-align:top;" class="avatar-big" alt="{{ user }}" src="{% avatar_url user 48 %}" />
 </a>
-Ustawienia użytkownika {{ user|name }}
+Ustawienia użytkownika {{ request.user|name }}
 <div class='cl'></div>
 </h1>
 

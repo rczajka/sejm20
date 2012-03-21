@@ -2,5 +2,5 @@
 {% load avatar_tags people_tags %}
 
 <a href="{% url "people_user" user.username %}">
-    {% avatar user 32 %} <span>{{ u|name }}</span>
+    {% avatar user 32 %} <span>{{ user|name }}</span>
     ({{ count }})</a>
