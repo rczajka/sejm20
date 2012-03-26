@@ -13,19 +13,11 @@
 <h1>Posiedzenie {{ posiedzenie.tytul }}</h1>
 
 <h2>Punkty porządku obrad:</h2>
-<ul class="blinken text">
-{% for p in punkty %}
-    <li>{% punkt_link p %}</li>
-{% endfor %}
-</ul>
+{% punkt_list punkty %}
 
 {% if glosowania %}
 <h2>Głosowania poza punktami:</h2>
-<ul class="blinken text">
-{% for p in glosowania %}
-    <li>{% glosowanie_link p %}</li>
-{% endfor %}
-</ul>
+{% glosowanie_list glosowania %}
 {% endif %}
 
 {% endblock leftcolumn %}

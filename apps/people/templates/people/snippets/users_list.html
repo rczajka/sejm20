@@ -1,0 +1,11 @@
+{% load url from future %}
+{% load people_tags %}
+
+
+{% spaceless %}
+<ul class="boxen user-boxen">
+{% for user in users %}
+    <li>{% user_link user %}</li>
+{% endfor %}
+</ul>
+{% endspaceless %}

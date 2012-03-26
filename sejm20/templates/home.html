@@ -8,50 +8,55 @@
 {% block body %}
 
 <section id="what">
-	<h1>O co chodzi?</h1>
+    <h1>Kto w Sejmie głosuje po Twojej myśli?</h1>
 
-	<p>Oceniając posłów i posłanki, musisz odpowiedzieć sobie na jedno ważne pytanie:
-		<strong>kto głosuje zgodnie z&nbsp;Twoimi poglądami</strong>. A potem świadomie wybierać.</p>
+    {% spaceless %}
+    <a class="kafel" href="{% url 'house_glosowania' %}">
+        <div class="insight">Wyraź swoje zdanie.</div>
+        <div class="cta"><strong>Zagłosuj</strong>razem z Sejmem!</div>
+        <div class="desc">Oceniaj konktretne głosowania, nie hasła i deklaracje polityków.</div>
+        <div class="more">(Co mogę ocenić?)</div>
+    </a>
 
-	<p>W serwisie <strong class="name">Sejm 2.0</strong>:</p>
-	<ul>
-		<li><strong>oceniasz konkretne głosowania</strong>, a nie hasła i deklaracje,</li>
-		<li><strong>opierasz się na ocenach</strong> osób i organizacji, którym ufasz, bo przecież nikt nie zna się na wszystkim,</li>
-		<li><strong>otrzymujesz wiedzę,</strong> którzy posłowie i które kluby głosują zgodnie z Twoimi przekonaniami.</li>
-		<li>…</li>
-		<li>Profit!</li>
-	</ul>
+    <a class="kafel" href="{% url 'people_users' %}">
+        <div class="insight">Nie musisz śledzić wszystkiego.</div>
+        <div class="cta"><strong>Zaufaj</strong> innym użytkownikom!</div>
+        <div class="desc">Nikt nie zna się sam na wszystkim.
+            Dlatego możesz uwzględnić oceny innych użytkowników, do których masz zaufanie.</div>
+        <div class="more">(Na przykład czyje?)</div>
+    </a>
 
-	<p>Proste?</p>
+    <a class="kafel" href="{% url 'people_ranking' %}">
+        <div class="insight">Sprawdź ich!</div>
+        <div class="cta"><strong>Dowiedz się</strong> którzy posłowie głosują<br/>zgodnie z Twoimi poglądami.</div>
+        <div class="desc">Otrzymasz ranking posłów i posłanek według zgodności z Twoimi ocenami.</div>
+        <div class="more">(Jak to działa?)</div>
+    </a>
 
-</section>
-
-
-<section id="main-votings">
-<h2>Ciekawe głosowania</h2>
-<ul class="blinken text">
-{% for g in glosowania %}
-    <li>{% glosowanie_link g %}</li>
-{% endfor %}
-</ul>
-</section>
-
-
-<section id="main-sessions">
-<h2>Wszystkie posiedzenia</h2>
-<ul class="blinken text">
-{% for p in posiedzenia %}
-    <li>{% posiedzenie_link p %}</li>
-{% endfor %}
-</ul>
+    {% endspaceless %}
+    <div class='cl'></div>
 </section>
 
 
 <section id="main-users">
-<h2>Użytkownicy</h2>
-<ul class="blinken">
-{% for u in users %}
-    <li>{% user_link u %}</li>
+<h2>Aktywni użytkownicy</h2>
+{% users_list users %}
+<p><a href="{% url 'people_users' %}" class="see-more">Więcej użytkowników</a></p>
+</section>
+
+
+<section id="main-votings">
+<h2>Popularne głosowania</h2>
+{% glosowanie_list glosowania %}
+<p><a href="{% url 'house_glosowania' %}" class="see-more">Więcej głosowań</a></p>
+</section>
+
+
+<section id="main-sessions">
+<h2>Przeglądaj posiedzenia</h2>
+<ul class="blinken text">
+{% for p in posiedzenia %}
+    <li>{% posiedzenie_link p %}</li>
 {% endfor %}
 </ul>
 </section>

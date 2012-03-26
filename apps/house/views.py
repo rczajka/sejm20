@@ -1,7 +1,9 @@
 from django.shortcuts import get_object_or_404, render
+from django.db.models import Count
 
 from house.models import Posel, Glosowanie, Posiedzenie, Punkt, Klub
 import people.api
+from people.models import Vote
 
 
 def klub(request, slug):
@@ -41,3 +43,6 @@ def glosowanie(request, pk):
     return render(request, "house/glosowanie_detail.html", locals())
 
 
+def glosowania(request):
+    glosowania = Glosowanie.objects.all().annotate(c=Count('vote')).order_by('-c', '-time')
+    return render(request, "house/glosowania.html", locals())

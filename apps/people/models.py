@@ -31,7 +31,7 @@ class Vote(models.Model):
         unique_together = [['glosowanie', 'user']]
         ordering = ['-time']
 
-    def vote_string(self):
+    def __unicode__(self):
         return self.vote_strings[self.vote]
 
 

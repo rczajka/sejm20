@@ -1,0 +1,12 @@
+{% extends "site_base.html" %}
+{% load url from future %}
+{% load house_tags people_tags %}
+
+
+{% block head_title %}Głosowania{% endblock %}
+
+
+{% block leftcolumn %}
+<h1>Głosowania</h1>
+{% glosowanie_list glosowania %}
+{% endblock %}

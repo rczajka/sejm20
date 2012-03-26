@@ -22,24 +22,27 @@ def posiedzenie_link(posiedzenie, more=None):
             'users': people.api.users_for_posiedzenie(posiedzenie),
             }
 
-@register.inclusion_tag("house/snippets/punkt_link.html")
-def punkt_link(punkt, more=None):
-    return {'obj': punkt,
-            'more': more,
-            'users': people.api.users_for_punkt(punkt),
+@register.inclusion_tag("house/snippets/punkt_list.html")
+def punkt_list(punkty):
+    for p in punkty:
+        p.users = people.api.users_for_punkt(p)
+    return {'punkty': punkty}
+
+@register.inclusion_tag("house/snippets/glosowanie_list.html", takes_context=True)
+def glosowanie_list(context, glosowania):
+    return {
+            'request': context['request'],
+            'glosowania': glosowania
             }
 
-@register.inclusion_tag("house/snippets/glosowanie_link.html")
-def glosowanie_link(glosowanie, more=None):
-    return {'obj': glosowanie,
-            'more': more,
-            'users': people.api.users_for_glosowanie(glosowanie),
-            }
-
-@register.inclusion_tag("house/snippets/glosowanie_link_short.html")
-def glosowanie_link_short(glosowanie, more=None):
-    return glosowanie_link(glosowanie, more)
-
+@register.inclusion_tag("house/snippets/glosowanie_link.html", takes_context=True)
+def glosowanie_link(context, glosowanie):
+    request = context['request']
+    return {
+            "obj": glosowanie,
+            "vote": people.api.get_vote(request.user, glosowanie),
+            "users": people.api.users_for_glosowanie(glosowanie),
+        }
 
 @register.inclusion_tag("house/snippets/posel_link.html")
 def posel_link(posel, rating=None):

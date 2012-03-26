@@ -1,0 +1,18 @@
+{% load people_tags %}
+
+{% spaceless %}
+<ul class="boxen punkt-boxen">
+{% for obj in punkty %}
+    <li>
+    {% with c=obj.glosowanie_set.count %}
+    <a class="box punkt-box{% if c == 0 %} empty{% endif %}" href="{{ obj.get_absolute_url }}">
+        <div class="title">{{ obj.tytul }}</div>
+        <div class="subtitle">(posiedzenie {{ obj.posiedzenie.tytul }}, nr {{ obj.nr }})</div>
+        <div class="comment">({{ c }} głos.)</div>
+        {% users_inline obj.users 20 %}
+    </a>
+    {% endwith %}
+    </li>
+{% endfor %}
+</ul>
+{% endspaceless %}

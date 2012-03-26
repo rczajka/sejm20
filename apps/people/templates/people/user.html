@@ -33,13 +33,8 @@
 
 
 <h2>Ocenione głosowania ({{ user.vote_set.count }}):</h2>
-
-<ul class="blinken text">
-	{% for v in user.vote_set.all %}
-	<li>{% glosowanie_link v.glosowanie v.vote_string %}</li>
-	{% endfor %}
-</ul>
-
+{# TODO: v.vote_string! #}
+{% user_glosowanie_list user %}
 {% endblock leftcolumn %}
 
 
@@ -48,7 +43,7 @@
 <h3>Ma zaufanie do:</h3>
 {% users_inline_links follows %}
 
-<h3>Mają zaufanie:</h3>
+<h3>Sympatycy:</h3>
 {% users_inline_links followers %}
 
 {% if request.user != user %}

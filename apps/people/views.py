@@ -1,16 +1,31 @@
 # Create your views here.
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db.models import Count
 from django.http import HttpResponseRedirect
 from django.views.decorators.http import require_POST
 from django.shortcuts import get_object_or_404, render
-from house.models import Glosowanie
+from house.models import Glosowanie, Klub, Posel
 from people import api
 from django.core.urlresolvers import reverse
 from people.forms import UserProfileForm
-from people.models import UserProfile
+from people.models import UserProfile, Vote
 
 
+def retain_POST(view):
+    def wrapped(request, *args, **kwargs):
+        if request.method == 'GET' and '_old_post' in request.session:
+            request.POST = request.session['_old_post']
+            request.method = 'POST'
+            del request.session['_old_post']
+        response = view(request, *args, **kwargs)
+        if isinstance(response, HttpResponseRedirect):
+            request.session['_old_post'] = request.POST
+        return response
+    return wrapped
+
+
+@retain_POST
 @login_required
 @require_POST
 def vote(request, pk):
@@ -19,6 +34,7 @@ def vote(request, pk):
     api.vote(request.user, glosowanie, glos)
     return HttpResponseRedirect(glosowanie.get_absolute_url())
 
+@retain_POST
 @login_required
 @require_POST
 def unvote(request, pk):
@@ -37,6 +53,7 @@ def rank(request):
     return render(request, "people/rank.html", locals())
 
 
+@retain_POST
 @login_required
 @require_POST
 def follow(request, username):
@@ -45,6 +62,7 @@ def follow(request, username):
     return HttpResponseRedirect(reverse("people_user", args=[username]))
 
 
+@retain_POST
 @login_required
 @require_POST
 def unfollow(request, username):
@@ -71,3 +89,8 @@ def user(request, username):
     follows = api.followed(user)
     followers = api.followers(user)
     return render(request, "people/user.html", locals())
+
+
+def users(request):
+    users = User.objects.all().annotate(c=Count('vote')).order_by('-c')
+    return render(request, "people/users.html", locals())

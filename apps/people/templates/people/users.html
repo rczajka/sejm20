@@ -1,0 +1,12 @@
+{% extends "site_base.html" %}
+{% load url from future %}
+{% load people_tags %}
+
+
+{% block head_title %}Użytkownicy{% endblock %}
+
+
+{% block body %}
+<h1>Użytkownicy</h1>
+{% users_list users %}
+{% endblock %}

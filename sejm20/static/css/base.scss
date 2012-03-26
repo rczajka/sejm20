@@ -42,7 +42,7 @@ header {
 	color: $light;
 	padding-top: $headertop;
 	box-shadow: 0 .4em .3em $light;
-	/*height: $header - $headertop;*/
+	height: $header - $headertop;
 	position: relative;
 	z-index:1;
 }
@@ -207,7 +207,17 @@ ul.blinken.text a {
 }
 
 
-#main-sessions, #main-users, #main-votings {
+#main-votings {
+  width: 40em;
+  float:left;
+}
+
+#main-sessions {
+  width: 15em;
+  float:right;
+}
+
+/*#main-sessions, #main-users, #main-votings {
 	float:left;
 	margin-bottom: 4em;
 }
@@ -219,7 +229,7 @@ ul.blinken.text a {
 #main-votings {
 	width: 60%;
 	margin-right: 5%;
-}
+}*/
 
 .link {
 	.title {
@@ -243,30 +253,23 @@ ul.blinken.text a {
 }
 
 
-fieldset {
-	border: 0;
-}
-
-
 #ranking-poslowie {
   float: left;
+  margin-right: 2em;
 }
 #ranking-kluby {
 	float: right;
 }
+#ranking-poslowie ol,
+#ranking-kluby ol {
+  padding-left: 1.5em;
+  margin-left: 0;
+}
 
 
 #what {
-	padding: 2em 8em 2em 8em;
+	padding: 0 5em 2em 5em;
 	border-bottom: 1px solid $strong;
-	color: $dark;
-
-	h1 {
-		color: black;
-	}
-	.name {
-		color: black;
-	}
 }
 
 
@@ -307,4 +310,104 @@ fieldset {
 .avatar-big {
   vertical-align: middle;
   margin-right: 1em;
+}
+
+.percentage {
+  background-image: url("data:image/gif;base64,R0lGODdhAQABAIABAPLv7f///ywAAAAAAQABAAACAkQBADs=");
+  border-top: 1px solid #f2efed;
+  background-repeat: no-repeat;
+}
+.percentage:hover {
+  border-color: $verylight;
+  background: none;
+
+}
+
+
+
+.uwaga {
+  padding: 1em;
+  box-shadow: 0 0 1em $verylight;
+  margin: 1em;
+  background: #f2efed;
+}
+
+/* main page kafel */
+.kafel {
+  display:block;
+  color: $dark;
+  float: left;
+  width: 12.5em;
+  padding: 1em;
+  height: 12em;
+  box-shadow: 0 0 1em $verylight;
+  margin: 1em;
+  position: relative;
+
+  .insight {
+    text-align: left;
+    font-size: .9em;
+  }
+  strong {
+    display: block;
+    font-size: 2em;
+    text-align:center;
+    margin-bottom: .3em;
+  }
+  .cta {
+    margin-top: .6em;
+    text-align:right;
+    color: $strong;
+    text-shadow: .2em .2em .5em $verylight;
+  }
+  .desc {
+    font-size: .8em;
+    margin-top: 1.5em;
+    }
+  .more {
+    text-align: right;
+    position: absolute;
+    right: 1.25em;
+    bottom: .625em;
+    font-size: .8em;
+    color: $strong;
+  }
+}
+
+
+.glosowanie-boxen {
+}
+.user-boxen {
+  li {
+    display: inline-block;
+  }
+}
+.boxen {
+  margin: 1em 0;
+  padding: 0;
+  list-style: none;
+  li {
+    margin: .5em;
+    box-shadow: 0 0 .5em $light;
+    
+    .user-box {
+      width: 12.5em;
+    }
+    .glosowanie-box {
+      wwidth: 27.5em;
+    }
+    .box {
+      padding: .75em;
+      margin: 0;
+      display: block;
+      img {
+      }
+      .subtitle {
+        color: $dark;
+      }
+      .comment {
+        color: $light;
+      }
+    }
+  }
 }

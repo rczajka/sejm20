@@ -8,4 +8,5 @@ urlpatterns = patterns('people.views',
     url(r'^glosuj/(?P<pk>\d+)/$', 'vote', name='people_vote'),
     url(r'^odglosuj/(?P<pk>\d+)/$', 'unvote', name='people_unvote'),
     url(r'^poslowie/', 'rank', name='people_ranking'),
+    url(r'^uzytkownicy/$', 'users', name='people_users'),
 )

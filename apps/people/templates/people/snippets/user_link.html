@@ -1,6 +1,10 @@
+{% spaceless %}
 {% load url from future %}
 {% load avatar_tags people_tags %}
-
-<a href="{% url "people_user" user.username %}">
-    {% avatar user 32 %} <span>{{ user|name }}</span>
-    ({{ count }})</a>
+<a href="{% url "people_user" user.username %}" class='box user-box'>
+    {% avatar user 200 %}
+    <div class='title'>{{ user|name }}</div>
+    <div class='subtitle'>ocenionych głosowań: {{ user.c }}</div>
+    <div class='other'>{% followers_inline user 20 %} </div>
+</a>
+{% endspaceless %}

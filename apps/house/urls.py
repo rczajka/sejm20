@@ -6,5 +6,6 @@ urlpatterns = patterns('house.views',
     url(r'^posiedzenia/$', 'posiedzenia', name='house_posiedzenia'),
     url(r'^posiedzenie/(?P<pk>\d+)/$', 'posiedzenie', name='house_posiedzenie'),
     url(r'^punkt/(?P<pk>\d+)/$', 'punkt', name='house_punkt'),
+    url(r'^glosowania/$', 'glosowania', name='house_glosowania'),
     url(r'^glosowanie/(?P<pk>\d+)/$', 'glosowanie', name='house_glosowanie'),
 )

@@ -14,12 +14,7 @@
 <h1>Punkt {{ punkt.nr }}: {{ punkt.tytul }}</h1>
 
 <h2>Głosowania:</h2>
-
-<ul class="blinken">
-{% for g in glosowania %}
-    <li>{% glosowanie_link g %}</li>
-{% endfor %}
-</ul>
+{% glosowanie_list glosowania %}
 {% endblock leftcolumn %}
 
 

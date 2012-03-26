@@ -1,0 +1,9 @@
+{% load house_tags %}
+
+{% spaceless %}
+<ul class="boxen glosowanie-boxen">
+{% for obj in glosowania %}
+    <li>{% glosowanie_link obj %}</li>
+{% endfor %}
+</ul>
+{% endspaceless %}
