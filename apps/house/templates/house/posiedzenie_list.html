@@ -1,4 +1,5 @@
 {% extends "site_base.html" %}
+{% load url from future %}
 {% load house_tags %}
 
 
@@ -18,4 +19,6 @@
 
 {% block rightcolumn %}
 <p><a href='http://sejmometr.pl/kalendarz' target='_blank'>Kalendarz posiedzeń w&nbsp;Sejmometrze.</a></p>
+
+<p><a href="{% url 'house_glosowania' %}">Przeglądaj wszystkie głosowania.</a></p>
 {% endblock rightcolumn %}

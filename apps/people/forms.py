@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from people.models import UserProfile
+from django.core.exceptions import ValidationError
+from django.contrib.auth.hashers import check_password
 
 
 class UserProfileForm(forms.ModelForm):
@@ -21,3 +23,16 @@ class UserProfileForm(forms.ModelForm):
         self.instance.user.first_name = self.cleaned_data.get('first_name')
         self.instance.user.last_name = self.cleaned_data.get('last_name')
         self.instance.user.save()
+
+
+class UserDeleteForm(forms.Form):
+    def __init__(self, user, *args, **kwargs):
+        super(UserDeleteForm, self).__init__(*args, **kwargs)
+        self.user = user
+        if user.has_usable_password():
+            self.fields['password'] = forms.CharField(label=u'Twoje hasło',
+                        widget = forms.PasswordInput(attrs={'autocomplete': 'off'}))
+
+    def clean_password(self):
+        if not check_password(self.cleaned_data['password'], self.user.password):
+            raise ValidationError('Hasło jest nieprawidłowe')

@@ -3,7 +3,7 @@
 
 {% block head_title %}Usuń obrazy{% endblock %}
 
-{% block body %}
+{% block leftcolumn %}
     <p>Wybierz obrazy, które chcesz usunąć.</p>
     {% if not avatars %}
         <p>Nie masz żadnych obrazów do usunięcia. <a href="{% url 'avatar_change' %}">Załaduj jakiś</a>.</p>
@@ -16,4 +16,9 @@
             <input type="submit" value="Usuń wybrane" />
         </form>
     {% endif %}
+{% endblock %}
+
+
+{% block rightcolumn %}
+{% settings_panel 'avatar_change' %}
 {% endblock %}

@@ -67,6 +67,8 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'pagination.middleware.PaginationMiddleware',
 ]
 
 ROOT_URLCONF = 'sejm20.urls'
@@ -99,10 +101,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
+    'django.contrib.flatpages',
 
     'south',
     'pipeline',
     'avatar',
+    'pagination',
 
     # allauth stuff
     'emailconfirmation',

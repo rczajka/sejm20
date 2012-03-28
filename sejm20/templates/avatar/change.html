@@ -1,10 +1,11 @@
 {% extends "site_base.html" %}
 {% load url from future %}
 {% load avatar_tags %}
+{% load people_tags %}
 
 {% block head_title %}Ustaw obraz{% endblock %}
 
-{% block body %}
+{% block leftcolumn %}
     <h1>Aktualny obraz: </h1>
     {% avatar user %}
     {% if not avatars %}
@@ -25,4 +26,9 @@
         <input type="file" name="avatar" value="Obraz" />
         <input type="submit" value="Załaduj obraz" />
     </form>
+{% endblock %}
+
+
+{% block rightcolumn %}
+{% settings_panel 'avatar_change' %}
 {% endblock %}

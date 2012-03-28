@@ -36,11 +36,13 @@ def glosowanie_list(context, glosowania):
             }
 
 @register.inclusion_tag("house/snippets/glosowanie_link.html", takes_context=True)
-def glosowanie_link(context, glosowanie):
+def glosowanie_link(context, glosowanie, user=None):
     request = context['request']
+    if user is None:
+        user = user or request.user
     return {
             "obj": glosowanie,
-            "vote": people.api.get_vote(request.user, glosowanie),
+            "vote": people.api.get_vote(user, glosowanie),
             "users": people.api.users_for_glosowanie(glosowanie),
         }
 

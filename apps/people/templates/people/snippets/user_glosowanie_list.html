@@ -1,1 +1,13 @@
-{% extends "house/snippets/glosowanie_list.html" %}
+{% load pagination_tags %}
+{% load house_tags %}
+
+{% autopaginate glosowania %}
+{% paginate %}
+{% spaceless %}
+<ul class="boxen glosowanie-boxen">
+{% for obj in glosowania %}
+    <li>{% glosowanie_link obj user %}</li>
+{% endfor %}
+</ul>
+{% endspaceless %}
+{% paginate %}

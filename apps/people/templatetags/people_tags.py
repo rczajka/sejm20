@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 from django import template
+from django.core.urlresolvers import reverse
 from people.models import Vote
 from people import api
 
@@ -74,6 +76,7 @@ def user_glosowanie_list(context, user):
     return {
             'glosowania': glosowania,
             'request': context['request'],
+            'user': user,
             }
 
 @register.inclusion_tag("people/snippets/users_inline.html")
@@ -82,4 +85,17 @@ def users_inline(users, size=32):
 
 @register.inclusion_tag("people/snippets/users_inline_links.html")
 def users_inline_links(users, size=32):
+    return locals()
+
+@register.inclusion_tag("people/snippets/settings_panel.html", takes_context=True)
+def settings_panel(context, active):
+    links = [('people_user', reverse('people_user', args=[context['request'].user]),
+                        u'Zobacz swój profil'),
+             ('people_settings', None, u'Ustawienia profilu'),
+             ('avatar_change', None, u'Zmień obraz'),
+             ('account_email', None, u'Ustaw e-mail'),
+             ('account_set_password', None, u'Zmień hasło'),
+             ('socialaccount_connections', None, u'Zewnętrzne konta'),
+             ('people_user_delete', None, u'Usuwanie konta'),
+             ]
     return locals()

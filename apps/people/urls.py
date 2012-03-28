@@ -2,6 +2,7 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns('people.views',
     url(r'^uzytkownik/$', 'settings', name='people_settings'),
+    url(r'^usun_konto/$', 'user_delete', name='people_user_delete'),
     url(r'^uzytkownik/(?P<username>[^/]*)/$', 'user', name='people_user'),
     url(r'^ufaj/(?P<username>[^/]*)/$', 'follow', name='people_follow'),
     url(r'^odufaj/(?P<username>[^/]*)/$', 'unfollow', name='people_unfollow'),

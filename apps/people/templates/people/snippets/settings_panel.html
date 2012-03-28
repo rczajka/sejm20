@@ -1,0 +1,10 @@
+{% load url from future %}
+{% for slug, url, label in links %}
+    <p>
+        {% if active != slug %}
+            <a href="{% if url %}{{ url }}{% else %}{% url slug %}{% endif %}">
+        {% endif %}
+        {{ label }}
+        {% if active != urlname %}</a>{% endif %}
+    </p>
+{% endfor %}

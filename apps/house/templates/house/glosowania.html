@@ -1,4 +1,5 @@
 {% extends "site_base.html" %}
+{% load pagination_tags %}
 {% load url from future %}
 {% load house_tags people_tags %}
 
@@ -8,5 +9,13 @@
 
 {% block leftcolumn %}
 <h1>Głosowania</h1>
+{% autopaginate glosowania %}
+{% paginate %}
 {% glosowanie_list glosowania %}
+{% paginate %}
+{% endblock %}
+
+
+{% block rightcolumn %}
+<p><a href="{% url 'house_posiedzenia' %}">Przeglądaj według posiedzeń</a></p>
 {% endblock %}

@@ -4,12 +4,13 @@ from django.contrib.auth.models import User
 from django.db.models import Count
 from django.http import HttpResponseRedirect
 from django.views.decorators.http import require_POST
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from house.models import Glosowanie, Klub, Posel
 from people import api
 from django.core.urlresolvers import reverse
-from people.forms import UserProfileForm
+from people.forms import UserProfileForm, UserDeleteForm
 from people.models import UserProfile, Vote
+from django.contrib.auth import logout
 
 
 def retain_POST(view):
@@ -94,3 +95,16 @@ def user(request, username):
 def users(request):
     users = User.objects.all().annotate(c=Count('vote')).order_by('-c')
     return render(request, "people/users.html", locals())
+
+
+@login_required
+def user_delete(request):
+    if request.method == 'POST':
+        form = UserDeleteForm(request.user, data=request.POST)
+        if form.is_valid():
+            request.user.delete()
+            logout(request)
+            return render(request, "people/user_deleted.html")
+    else:
+        form = UserDeleteForm(request.user)
+    return render(request, "people/user_delete.html", locals())

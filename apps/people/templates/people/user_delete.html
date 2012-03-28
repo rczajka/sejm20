@@ -14,17 +14,22 @@
 <a title="zmień obraz" href = "{% url "avatar_change" %}">
 <img style="float:left; vertical-align:top;" class="avatar-big" alt="{{ user }}" src="{% avatar_url user 48 %}" />
 </a>
-Ustawienia użytkownika {{ request.user|name }}
+Usuwanie użytkownika {{ request.user|name }}
 <div class='cl'></div>
 </h1>
 
+
+<p><strong>UWAGA!</strong> Operacja usunięcia użytkownika jest nieodwracalna.
+    W jej wyniku usunięte zostaną wszystkie Twoje dane,
+    oceny głosowań i relacje z innymi użytkownikami.
+    Czy masz <strong>absolutną pewność</strong>, że chcesz to zrobić?</p>
 
 <form method="POST" action="" class="uniForm">
     {% csrf_token %}
     <fieldset class="inlineLabels">
         {{ form|as_uni_form }}
         <div class = "buttonHolder">
-            <input type="submit" value="Wyślij" />
+            <input type="submit" value="Usuń konto" />
         </div>
     </fieldset>
 </form>
@@ -35,5 +40,5 @@ Ustawienia użytkownika {{ request.user|name }}
 
 
 {% block rightcolumn %}
-{% settings_panel 'people_settings' %}
+{% settings_panel 'people_user_delete' %}
 {% endblock rightcolumn %}
