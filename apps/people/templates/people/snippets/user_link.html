@@ -5,6 +5,6 @@
     {% avatar user 200 %}
     <div class='title'>{{ user|name }}</div>
     <div class='subtitle'>ocenionych głosowań: {{ user.c }}</div>
-    <div class='other'>{% followers_inline user 20 %} </div>
+    <div class='other'>{% followers_inline user 10 20 %} </div>
 </a>
 {% endspaceless %}

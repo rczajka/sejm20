@@ -64,9 +64,12 @@ def voting_on(glosowanie):
 
 
 @register.inclusion_tag("people/snippets/users_inline.html")
-def followers_inline(user, size=32):
+def followers_inline(user, limit=None, size=32):
+    fships = user.followers.all()
+    if limit is not None:
+        fships = fships[:limit]
     return {
-        "users": (f.follower for f in user.followers.all()),
+        "users": (f.follower for f in fships),
         "size": size,
     }
 
