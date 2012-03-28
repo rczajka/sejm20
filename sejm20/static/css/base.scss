@@ -392,6 +392,14 @@ ul.blinken.text a {
     
     .user-box {
       width: 12.5em;
+      .title, .subtitle, .other {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .other {
+        height: 22px;
+      }
     }
     .glosowanie-box {
       wwidth: 27.5em;
